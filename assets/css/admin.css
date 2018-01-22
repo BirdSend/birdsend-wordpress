@@ -1,0 +1,35 @@
+.toplevel_page_bswp-settings #wpcontent {
+	padding-left: 0;
+}
+
+.bswp-wrapper {
+	width: 100%;
+	max-width: 100%;
+}
+
+.bswp-wrapper nav {
+	color: #333;
+	border-bottom: 1px solid #ddd;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+.bswp-wrapper nav ul a {
+	color: #a7a7a7;
+}
+
+.bswp-wrapper .brand-logo {
+	padding-top: 10px;
+}
+
+.bswp-container {
+	width: 760px;
+	max-width: 100%;
+	margin: 35px auto;
+}
+
+.bswp-container .card-wide {
+	max-width: 100% !important;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+}
