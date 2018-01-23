@@ -43,5 +43,29 @@ define( 'BSWP_JS', BSWP_URL . 'assets/js/' );
 define( 'BSWP_CSS', BSWP_URL . 'assets/css/' );
 define( 'BSWP_IMG', BSWP_URL . 'assets/img/' );
 
+if (file_exists( BSWP_PATH . 'config.php' )) {
+	require_once( BSWP_PATH . 'config.php' );
+}
+
+if (! defined('BSWP_API_URL')) {
+	define( 'BSWP_API_URL', 'https://api.birdsend.co/' );
+}
+
+if (! defined('BSWP_OAUTH_URL')) {
+	define( 'BSWP_OAUTH_URL', 'https://birdsend.co/' );
+}
+
+if (! defined('BSWP_CLIENT_ID')) {
+	define('BSWP_CLIENT_ID', '');
+}
+
+if (! defined('BSWP_CLIENT_SECRET')) {
+	define('BSWP_CLIENT_SECRET', '');
+}
+
+// load composer packages
+require_once( BSWP_PATH . 'vendor/autoload.php');
+
 // load files
 require_once( BSWP_INC . 'admin.php' );
+require_once( BSWP_INC . 'admin-functions.php' );
