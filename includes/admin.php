@@ -5,7 +5,6 @@
  */
 function bswp_add_admin() {
     add_menu_page('BirdSend for WordPress', 'BirdSend for WP', 'manage_options', 'bswp-settings', 'bswp_settings');
-    //add_submenu_page('bswp-settings', 'Settings', 'Settings', 'manage_options', 'bswp-settings', 'bswp_settings');
 }
 add_action('admin_menu', 'bswp_add_admin');
 
