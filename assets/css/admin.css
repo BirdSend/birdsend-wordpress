@@ -33,3 +33,7 @@
 	box-shadow: none;
 	-webkit-box-shadow: none;
 }
+
+.bswp-container #bswp_settings_box {
+	margin: 20px 0;
+}

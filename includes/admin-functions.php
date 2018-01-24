@@ -20,6 +20,10 @@ function bswp_admin_action() {
                 bswp_do_disconnect();
                 wp_redirect('admin.php?page=bswp-settings');
                 break;
+
+            case 'save_options':
+                bswp_save_options();
+                wp_redirect('admin.php?page=bswp-settings&msg=options_updated');
             
             default:
                 # code...
@@ -35,13 +39,17 @@ add_action('admin_init', 'bswp_admin_action');
  * @return void
  */
 function bswp_admin_notice() {
-    if (isset($_GET['page']) && $_GET['page'] == 'bswp-settings' && ! empty($_GET['error'])) {
-        switch ($_GET['error']) {
-            case 'cant_connect':
-                echo '<div class="notice notice-error">';
-                echo '<p>There was error connecting your BirdSend account. Please try again or contact us if the problem persists!</p>';
-                echo '</div>';
-                break;
+    if (isset($_GET['page']) && $_GET['page'] == 'bswp-settings') {
+        if (isset($_GET['error']) && $_GET['error'] == 'cant_connect') {
+            echo '<div class="notice notice-error">';
+            echo '<p>There was error connecting your BirdSend account. Please try again or contact us if the problem persists!</p>';
+            echo '</div>';
+        }
+
+        if (isset($_GET['msg']) && $_GET['msg'] == 'options_updated') {
+            echo '<div class="notice notice-success">';
+            echo '<p>Success! BirdSend Pixel Settings has been updated.</p>';
+            echo '</div>';
         }
     }
 }
@@ -136,7 +144,7 @@ function bswp_pixel_code() {
  */
 function bswp_get_pixel_code() {
     if ($response = bswp_api_request('GET', 'pixels/code')) {
-        update_option('bswp_pixel_code');
+        update_option('bswp_pixel_code', $response['code']);
         return $response['code'];
     }
     return false;
@@ -180,3 +188,67 @@ function bswp_api_request($method, $path, $data = array()) {
     }
     return false;
 }
+
+/**
+ * Save options
+ *
+ * @return void
+ */
+function bswp_save_options() {
+    $options = $_POST['bswp_options'];
+    if (! isset($options['enabled'])) {
+        $options['enabled'] = false;
+    }
+    return update_option('bswp_options', $options);
+}
+
+/**
+ * Get plugin options
+ *
+ * @return array
+ */
+function bswp_options() {
+    return get_option('bswp_options', array());
+}
+
+/**
+ * Is enabled
+ *
+ * @return bool
+ */
+function bswp_is_enabled() {
+    $options = bswp_options();
+    return isset($options['enabled']) ? $options['enabled'] : !!bswp_token();
+}
+
+/**
+ * Inject pixel into all posts/pages/customs
+ *
+ * @return void
+ */
+function bswp_inject_pixel() {
+    if (! bswp_is_enabled() )
+        return;
+
+    // Make sure this is a single post/page
+    if ( !is_single() )
+        return;
+
+    // Get the post data
+    $post = get_post();
+    if (empty($post->post_type))
+        return;
+
+    $options = bswp_options();
+    $key = in_array($post->post_type, array('post', 'page'))
+        ? 'excluded_' . $post->post_type . 's'
+        : 'excluded_custom_' . $post->post_type;
+
+    if (isset($options[$key]) && in_array($post->ID, $options[$key]))
+        return;
+
+    echo '<!-- BirdSend Pixel Start -->' . "\n";
+    echo bswp_pixel_code() . "\n";
+    echo '<!-- BirdSend Pixel End -->' . "\n";
+}
+add_action('wp_head', 'bswp_inject_pixel');
