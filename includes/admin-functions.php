@@ -227,12 +227,14 @@ function bswp_is_enabled() {
  * @return void
  */
 function bswp_inject_pixel() {
-    if (! bswp_is_enabled() )
+    if (! bswp_is_enabled() ) {
         return;
+    }
 
     // Make sure this is a single post/page
-    if ( !is_single() )
+    if ( !is_single() && !is_page() ) {
         return;
+    }
 
     // Get the post data
     $post = get_post();
