@@ -48,19 +48,21 @@ if (file_exists( BSWP_PATH . 'config.php' )) {
 }
 
 if (! defined('BSWP_API_URL')) {
-	define( 'BSWP_API_URL', 'https://qatest.birdsend.co/' );
+	define( 'BSWP_API_URL', 'https://api.birdsend.co/' );
 }
 
 if (! defined('BSWP_OAUTH_URL')) {
-	define( 'BSWP_OAUTH_URL', 'https://qatest.birdsend.co/' );
+	define( 'BSWP_OAUTH_URL', 'https://api.birdsend.co/' );
 }
 
 if (! defined('BSWP_CLIENT_ID')) {
-	define('BSWP_CLIENT_ID', '1');
+	// Set default password grant client ID
+	define( 'BSWP_CLIENT_ID', '1' );
 }
 
 if (! defined('BSWP_CLIENT_SECRET')) {
-	define('BSWP_CLIENT_SECRET', 'B6Ug1gEVmS6p3ZnTDWfJ1daa6I6hOb2SXBq68Ocj');
+	// Set default password grant client secret
+	define( 'BSWP_CLIENT_SECRET', 'B6Ug1gEVmS6p3ZnTDWfJ1daa6I6hOb2SXBq68Ocj' );
 }
 
 // load composer packages

@@ -12,7 +12,7 @@ var BSWP_Admin = function () {
 			handleSettings();
 		});
 
-		jQuery('select').material_select();
+		jQuery('select').formSelect();
 	};
 
 	var handleSettings = function () {
