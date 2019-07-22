@@ -36,6 +36,7 @@ define( 'BSWP_DB_VERSION', '0.1' );
 define( 'BSWP_URL', plugin_dir_url(__FILE__) );
 define( 'BSWP_PATH', plugin_dir_path(__FILE__) );
 define( 'BSWP_BASENAME', plugin_basename( __FILE__ ) );
+define( 'BSWP_LIBS', BSWP_PATH . 'libs/' );
 
 define( 'BSWP_INC', BSWP_PATH . 'includes/');
 
@@ -43,31 +44,19 @@ define( 'BSWP_JS', BSWP_URL . 'assets/js/' );
 define( 'BSWP_CSS', BSWP_URL . 'assets/css/' );
 define( 'BSWP_IMG', BSWP_URL . 'assets/img/' );
 
-if (file_exists( BSWP_PATH . 'config.php' )) {
-	require_once( BSWP_PATH . 'config.php' );
-}
-
-if (! defined('BSWP_API_URL')) {
-	define( 'BSWP_API_URL', 'https://api.birdsend.co/' );
-}
-
-if (! defined('BSWP_OAUTH_URL')) {
-	define( 'BSWP_OAUTH_URL', 'https://api.birdsend.co/' );
-}
-
-if (! defined('BSWP_CLIENT_ID')) {
-	// Set default password grant client ID
-	define( 'BSWP_CLIENT_ID', '1' );
-}
-
-if (! defined('BSWP_CLIENT_SECRET')) {
-	// Set default password grant client secret
-	define( 'BSWP_CLIENT_SECRET', 'B6Ug1gEVmS6p3ZnTDWfJ1daa6I6hOb2SXBq68Ocj' );
-}
+define( 'BSWP_APP_URL', 'https://app.birdsend.co/' );
+define( 'BSWP_API_URL', 'https://api.birdsend.co/' );
 
 // load composer packages
 require_once( BSWP_PATH . 'vendor/autoload.php');
 
-// load files
-require_once( BSWP_INC . 'admin.php' );
-require_once( BSWP_INC . 'admin-functions.php' );
+// load libraries
+require_once( BSWP_LIBS . 'helpers.php' );
+require_once( BSWP_LIBS . 'pixel.php' );
+require_once( BSWP_LIBS . 'webhook.php' );
+
+// load admin files
+if ( is_admin() ) {
+    require_once( BSWP_INC . 'admin.php' );
+    require_once( BSWP_INC . 'admin-functions.php' );
+}

@@ -4,7 +4,7 @@
  * @return void
  */
 function bswp_add_admin() {
-    add_menu_page('BirdSend for WordPress', 'BirdSend for WP', 'manage_options', 'bswp-settings', 'bswp_settings', WP_CONTENT_URL . '/plugins/birdsend-wordpress/assets/img/logo-menu.png');
+    add_menu_page('BirdSend', 'BirdSend', 'manage_options', 'bswp-settings', 'bswp_settings', BSWP_URL . 'favicon.ico');
 }
 add_action('admin_menu', 'bswp_add_admin');
 
@@ -32,17 +32,16 @@ add_action('admin_enqueue_scripts', 'bswp_admin_scripts');
  * Admin settings page
  */
 function bswp_settings() {
-    $mode = '';
+    $action = '';
     
-    if (isset($_GET['mode'])) {
-        $mode = $_GET['mode'];
+    if (isset($_GET['action'])) {
+        $action = $_GET['action'];
     }
 
-    switch ($mode) {
-        case 'connect':
-            include_once('admin-connect.php');
+    switch ($action) {
+        case 'developer':
+            include_once('admin-developer.php');
             break;
-        
         default:
             include_once('admin-settings.php');
             break;
