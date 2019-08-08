@@ -4,7 +4,7 @@
  * @return void
  */
 function bswp_add_admin() {
-    add_menu_page('BirdSend', 'BirdSend', 'manage_options', 'bswp-settings', 'bswp_settings', BSWP_URL . 'favicon.ico');
+    add_menu_page('BirdSend', 'BirdSend', 'manage_options', 'bswp-settings', 'bswp_settings', BSWP_URL . 'favicon.ico', '30.183456');
 }
 add_action('admin_menu', 'bswp_add_admin');
 
