@@ -1,3 +1,7 @@
+.toplevel_page_bswp-settings .wp-menu-image img {
+	width: 16px;
+}
+
 .toplevel_page_bswp-settings #wpcontent {
 	padding-left: 0;
 }
@@ -20,8 +24,8 @@
 
 .bswp-wrapper .brand-logo {
 	padding-top: 10px;
-  width: 150px;
-  height: 41px;
+	width: 150px;
+	height: 41px;
 }
 
 .bswp-container {
@@ -31,7 +35,7 @@
 }
 
 .bswp-container .card-wide {
-	max-width: 100% !important;
+	max-width: 100%;
 	box-shadow: none;
 	-webkit-box-shadow: none;
 }
@@ -43,1231 +47,1231 @@
 /** Utilities */
 
 .bswp-m-0 {
-  margin: 0 !important;
+	margin: 0;
 }
 
 .bswp-m-1 {
-  margin: .25rem !important;
+	margin: .25rem;
 }
 
 .bswp-m-2 {
-  margin: .5rem !important;
+	margin: .5rem;
 }
 
 .bswp-m-3 {
-  margin: .75rem !important;
+	margin: .75rem;
 }
 
 .bswp-m-4 {
-  margin: 1rem !important;
+	margin: 1rem;
 }
 
 .bswp-m-5 {
-  margin: 1.25rem !important;
+	margin: 1.25rem;
 }
 
 .bswp-m-6 {
-  margin: 1.5rem !important;
+	margin: 1.5rem;
 }
 
 .bswp-m-8 {
-  margin: 2rem !important;
+	margin: 2rem;
 }
 
 .bswp-m-10 {
-  margin: 2.5rem !important;
+	margin: 2.5rem;
 }
 
 .bswp-m-12 {
-  margin: 3rem !important;
+	margin: 3rem;
 }
 
 .bswp-m-14 {
-  margin: 3.5rem !important;
+	margin: 3.5rem;
 }
 
 .bswp-m-16 {
-  margin: 4rem !important;
+	margin: 4rem;
 }
 
 .bswp-m-20 {
-  margin: 5rem !important;
+	margin: 5rem;
 }
 
 .bswp-m-24 {
-  margin: 6rem !important;
+	margin: 6rem;
 }
 
 .bswp-m-32 {
-  margin: 8rem !important;
+	margin: 8rem;
 }
 
 .bswp-m-40 {
-  margin: 10rem !important;
+	margin: 10rem;
 }
 
 .bswp-m-48 {
-  margin: 12rem !important;
+	margin: 12rem;
 }
 
 .bswp-m-56 {
-  margin: 14rem !important;
+	margin: 14rem;
 }
 
 .bswp-m-64 {
-  margin: 16rem !important;
+	margin: 16rem;
 }
 
 .bswp-m-auto {
-  margin: auto !important;
+	margin: auto;
 }
 
 .bswp-m-px {
-  margin: 1px !important;
+	margin: 1px;
 }
 
 .bswp-my-0 {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
 .bswp-mx-0 {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
+	margin-left: 0;
+	margin-right: 0;
 }
 
 .bswp-my-1 {
-  margin-top: .25rem !important;
-  margin-bottom: .25rem !important;
+	margin-top: .25rem;
+	margin-bottom: .25rem;
 }
 
 .bswp-mx-1 {
-  margin-left: .25rem !important;
-  margin-right: .25rem !important;
+	margin-left: .25rem;
+	margin-right: .25rem;
 }
 
 .bswp-my-2 {
-  margin-top: .5rem !important;
-  margin-bottom: .5rem !important;
+	margin-top: .5rem;
+	margin-bottom: .5rem;
 }
 
 .bswp-mx-2 {
-  margin-left: .5rem !important;
-  margin-right: .5rem !important;
+	margin-left: .5rem;
+	margin-right: .5rem;
 }
 
 .bswp-my-3 {
-  margin-top: .75rem !important;
-  margin-bottom: .75rem !important;
+	margin-top: .75rem;
+	margin-bottom: .75rem;
 }
 
 .bswp-mx-3 {
-  margin-left: .75rem !important;
-  margin-right: .75rem !important;
+	margin-left: .75rem;
+	margin-right: .75rem;
 }
 
 .bswp-my-4 {
-  margin-top: 1rem !important;
-  margin-bottom: 1rem !important;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
 }
 
 .bswp-mx-4 {
-  margin-left: 1rem !important;
-  margin-right: 1rem !important;
+	margin-left: 1rem;
+	margin-right: 1rem;
 }
 
 .bswp-my-5 {
-  margin-top: 1.25rem !important;
-  margin-bottom: 1.25rem !important;
+	margin-top: 1.25rem;
+	margin-bottom: 1.25rem;
 }
 
 .bswp-mx-5 {
-  margin-left: 1.25rem !important;
-  margin-right: 1.25rem !important;
+	margin-left: 1.25rem;
+	margin-right: 1.25rem;
 }
 
 .bswp-my-6 {
-  margin-top: 1.5rem !important;
-  margin-bottom: 1.5rem !important;
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
 }
 
 .bswp-mx-6 {
-  margin-left: 1.5rem !important;
-  margin-right: 1.5rem !important;
+	margin-left: 1.5rem;
+	margin-right: 1.5rem;
 }
 
 .bswp-my-8 {
-  margin-top: 2rem !important;
-  margin-bottom: 2rem !important;
+	margin-top: 2rem;
+	margin-bottom: 2rem;
 }
 
 .bswp-mx-8 {
-  margin-left: 2rem !important;
-  margin-right: 2rem !important;
+	margin-left: 2rem;
+	margin-right: 2rem;
 }
 
 .bswp-my-10 {
-  margin-top: 2.5rem !important;
-  margin-bottom: 2.5rem !important;
+	margin-top: 2.5rem;
+	margin-bottom: 2.5rem;
 }
 
 .bswp-mx-10 {
-  margin-left: 2.5rem !important;
-  margin-right: 2.5rem !important;
+	margin-left: 2.5rem;
+	margin-right: 2.5rem;
 }
 
 .bswp-my-12 {
-  margin-top: 3rem !important;
-  margin-bottom: 3rem !important;
+	margin-top: 3rem;
+	margin-bottom: 3rem;
 }
 
 .bswp-mx-12 {
-  margin-left: 3rem !important;
-  margin-right: 3rem !important;
+	margin-left: 3rem;
+	margin-right: 3rem;
 }
 
 .bswp-my-14 {
-  margin-top: 3.5rem !important;
-  margin-bottom: 3.5rem !important;
+	margin-top: 3.5rem;
+	margin-bottom: 3.5rem;
 }
 
 .bswp-mx-14 {
-  margin-left: 3.5rem !important;
-  margin-right: 3.5rem !important;
+	margin-left: 3.5rem;
+	margin-right: 3.5rem;
 }
 
 .bswp-my-16 {
-  margin-top: 4rem !important;
-  margin-bottom: 4rem !important;
+	margin-top: 4rem;
+	margin-bottom: 4rem;
 }
 
 .bswp-mx-16 {
-  margin-left: 4rem !important;
-  margin-right: 4rem !important;
+	margin-left: 4rem;
+	margin-right: 4rem;
 }
 
 .bswp-my-20 {
-  margin-top: 5rem !important;
-  margin-bottom: 5rem !important;
+	margin-top: 5rem;
+	margin-bottom: 5rem;
 }
 
 .bswp-mx-20 {
-  margin-left: 5rem !important;
-  margin-right: 5rem !important;
+	margin-left: 5rem;
+	margin-right: 5rem;
 }
 
 .bswp-my-24 {
-  margin-top: 6rem !important;
-  margin-bottom: 6rem !important;
+	margin-top: 6rem;
+	margin-bottom: 6rem;
 }
 
 .bswp-mx-24 {
-  margin-left: 6rem !important;
-  margin-right: 6rem !important;
+	margin-left: 6rem;
+	margin-right: 6rem;
 }
 
 .bswp-my-32 {
-  margin-top: 8rem !important;
-  margin-bottom: 8rem !important;
+	margin-top: 8rem;
+	margin-bottom: 8rem;
 }
 
 .bswp-mx-32 {
-  margin-left: 8rem !important;
-  margin-right: 8rem !important;
+	margin-left: 8rem;
+	margin-right: 8rem;
 }
 
 .bswp-my-40 {
-  margin-top: 10rem !important;
-  margin-bottom: 10rem !important;
+	margin-top: 10rem;
+	margin-bottom: 10rem;
 }
 
 .bswp-mx-40 {
-  margin-left: 10rem !important;
-  margin-right: 10rem !important;
+	margin-left: 10rem;
+	margin-right: 10rem;
 }
 
 .bswp-my-48 {
-  margin-top: 12rem !important;
-  margin-bottom: 12rem !important;
+	margin-top: 12rem;
+	margin-bottom: 12rem;
 }
 
 .bswp-mx-48 {
-  margin-left: 12rem !important;
-  margin-right: 12rem !important;
+	margin-left: 12rem;
+	margin-right: 12rem;
 }
 
 .bswp-my-56 {
-  margin-top: 14rem !important;
-  margin-bottom: 14rem !important;
+	margin-top: 14rem;
+	margin-bottom: 14rem;
 }
 
 .bswp-mx-56 {
-  margin-left: 14rem !important;
-  margin-right: 14rem !important;
+	margin-left: 14rem;
+	margin-right: 14rem;
 }
 
 .bswp-my-64 {
-  margin-top: 16rem !important;
-  margin-bottom: 16rem !important;
+	margin-top: 16rem;
+	margin-bottom: 16rem;
 }
 
 .bswp-mx-64 {
-  margin-left: 16rem !important;
-  margin-right: 16rem !important;
+	margin-left: 16rem;
+	margin-right: 16rem;
 }
 
 .bswp-my-auto {
-  margin-top: auto !important;
-  margin-bottom: auto !important;
+	margin-top: auto;
+	margin-bottom: auto;
 }
 
 .bswp-mx-auto {
-  margin-left: auto !important;
-  margin-right: auto !important;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .bswp-my-px {
-  margin-top: 1px !important;
-  margin-bottom: 1px !important;
+	margin-top: 1px;
+	margin-bottom: 1px;
 }
 
 .bswp-mx-px {
-  margin-left: 1px !important;
-  margin-right: 1px !important;
+	margin-left: 1px;
+	margin-right: 1px;
 }
 
 .bswp-mt-0 {
-  margin-top: 0 !important;
+	margin-top: 0;
 }
 
 .bswp-mr-0 {
-  margin-right: 0 !important;
+	margin-right: 0;
 }
 
 .bswp-mb-0 {
-  margin-bottom: 0 !important;
+	margin-bottom: 0;
 }
 
 .bswp-ml-0 {
-  margin-left: 0 !important;
+	margin-left: 0;
 }
 
 .bswp-mt-1 {
-  margin-top: .25rem !important;
+	margin-top: .25rem;
 }
 
 .bswp-mr-1 {
-  margin-right: .25rem !important;
+	margin-right: .25rem;
 }
 
 .bswp-mb-1 {
-  margin-bottom: .25rem !important;
+	margin-bottom: .25rem;
 }
 
 .bswp-ml-1 {
-  margin-left: .25rem !important;
+	margin-left: .25rem;
 }
 
 .bswp-mt-2 {
-  margin-top: .5rem !important;
+	margin-top: .5rem;
 }
 
 .bswp-mr-2 {
-  margin-right: .5rem !important;
+	margin-right: .5rem;
 }
 
 .bswp-mb-2 {
-  margin-bottom: .5rem !important;
+	margin-bottom: .5rem;
 }
 
 .bswp-ml-2 {
-  margin-left: .5rem !important;
+	margin-left: .5rem;
 }
 
 .bswp-mt-3 {
-  margin-top: .75rem !important;
+	margin-top: .75rem;
 }
 
 .bswp-mr-3 {
-  margin-right: .75rem !important;
+	margin-right: .75rem;
 }
 
 .bswp-mb-3 {
-  margin-bottom: .75rem !important;
+	margin-bottom: .75rem;
 }
 
 .bswp-ml-3 {
-  margin-left: .75rem !important;
+	margin-left: .75rem;
 }
 
 .bswp-mt-4 {
-  margin-top: 1rem !important;
+	margin-top: 1rem;
 }
 
 .bswp-mr-4 {
-  margin-right: 1rem !important;
+	margin-right: 1rem;
 }
 
 .bswp-mb-4 {
-  margin-bottom: 1rem !important;
+	margin-bottom: 1rem;
 }
 
 .bswp-ml-4 {
-  margin-left: 1rem !important;
+	margin-left: 1rem;
 }
 
 .bswp-mt-5 {
-  margin-top: 1.25rem !important;
+	margin-top: 1.25rem;
 }
 
 .bswp-mr-5 {
-  margin-right: 1.25rem !important;
+	margin-right: 1.25rem;
 }
 
 .bswp-mb-5 {
-  margin-bottom: 1.25rem !important;
+	margin-bottom: 1.25rem;
 }
 
 .bswp-ml-5 {
-  margin-left: 1.25rem !important;
+	margin-left: 1.25rem;
 }
 
 .bswp-mt-6 {
-  margin-top: 1.5rem !important;
+	margin-top: 1.5rem;
 }
 
 .bswp-mr-6 {
-  margin-right: 1.5rem !important;
+	margin-right: 1.5rem;
 }
 
 .bswp-mb-6 {
-  margin-bottom: 1.5rem !important;
+	margin-bottom: 1.5rem;
 }
 
 .bswp-ml-6 {
-  margin-left: 1.5rem !important;
+	margin-left: 1.5rem;
 }
 
 .bswp-mt-8 {
-  margin-top: 2rem !important;
+	margin-top: 2rem;
 }
 
 .bswp-mr-8 {
-  margin-right: 2rem !important;
+	margin-right: 2rem;
 }
 
 .bswp-mb-8 {
-  margin-bottom: 2rem !important;
+	margin-bottom: 2rem;
 }
 
 .bswp-ml-8 {
-  margin-left: 2rem !important;
+	margin-left: 2rem;
 }
 
 .bswp-mt-10 {
-  margin-top: 2.5rem !important;
+	margin-top: 2.5rem;
 }
 
 .bswp-mr-10 {
-  margin-right: 2.5rem !important;
+	margin-right: 2.5rem;
 }
 
 .bswp-mb-10 {
-  margin-bottom: 2.5rem !important;
+	margin-bottom: 2.5rem;
 }
 
 .bswp-ml-10 {
-  margin-left: 2.5rem !important;
+	margin-left: 2.5rem;
 }
 
 .bswp-mt-12 {
-  margin-top: 3rem !important;
+	margin-top: 3rem;
 }
 
 .bswp-mr-12 {
-  margin-right: 3rem !important;
+	margin-right: 3rem;
 }
 
 .bswp-mb-12 {
-  margin-bottom: 3rem !important;
+	margin-bottom: 3rem;
 }
 
 .bswp-ml-12 {
-  margin-left: 3rem !important;
+	margin-left: 3rem;
 }
 
 .bswp-mt-14 {
-  margin-top: 3.5rem !important;
+	margin-top: 3.5rem;
 }
 
 .bswp-mr-14 {
-  margin-right: 3.5rem !important;
+	margin-right: 3.5rem;
 }
 
 .bswp-mb-14 {
-  margin-bottom: 3.5rem !important;
+	margin-bottom: 3.5rem;
 }
 
 .bswp-ml-14 {
-  margin-left: 3.5rem !important;
+	margin-left: 3.5rem;
 }
 
 .bswp-mt-16 {
-  margin-top: 4rem !important;
+	margin-top: 4rem;
 }
 
 .bswp-mr-16 {
-  margin-right: 4rem !important;
+	margin-right: 4rem;
 }
 
 .bswp-mb-16 {
-  margin-bottom: 4rem !important;
+	margin-bottom: 4rem;
 }
 
 .bswp-ml-16 {
-  margin-left: 4rem !important;
+	margin-left: 4rem;
 }
 
 .bswp-mt-20 {
-  margin-top: 5rem !important;
+	margin-top: 5rem;
 }
 
 .bswp-mr-20 {
-  margin-right: 5rem !important;
+	margin-right: 5rem;
 }
 
 .bswp-mb-20 {
-  margin-bottom: 5rem !important;
+	margin-bottom: 5rem;
 }
 
 .bswp-ml-20 {
-  margin-left: 5rem !important;
+	margin-left: 5rem;
 }
 
 .bswp-mt-24 {
-  margin-top: 6rem !important;
+	margin-top: 6rem;
 }
 
 .bswp-mr-24 {
-  margin-right: 6rem !important;
+	margin-right: 6rem;
 }
 
 .bswp-mb-24 {
-  margin-bottom: 6rem !important;
+	margin-bottom: 6rem;
 }
 
 .bswp-ml-24 {
-  margin-left: 6rem !important;
+	margin-left: 6rem;
 }
 
 .bswp-mt-32 {
-  margin-top: 8rem !important;
+	margin-top: 8rem;
 }
 
 .bswp-mr-32 {
-  margin-right: 8rem !important;
+	margin-right: 8rem;
 }
 
 .bswp-mb-32 {
-  margin-bottom: 8rem !important;
+	margin-bottom: 8rem;
 }
 
 .bswp-ml-32 {
-  margin-left: 8rem !important;
+	margin-left: 8rem;
 }
 
 .bswp-mt-40 {
-  margin-top: 10rem !important;
+	margin-top: 10rem;
 }
 
 .bswp-mr-40 {
-  margin-right: 10rem !important;
+	margin-right: 10rem;
 }
 
 .bswp-mb-40 {
-  margin-bottom: 10rem !important;
+	margin-bottom: 10rem;
 }
 
 .bswp-ml-40 {
-  margin-left: 10rem !important;
+	margin-left: 10rem;
 }
 
 .bswp-mt-48 {
-  margin-top: 12rem !important;
+	margin-top: 12rem;
 }
 
 .bswp-mr-48 {
-  margin-right: 12rem !important;
+	margin-right: 12rem;
 }
 
 .bswp-mb-48 {
-  margin-bottom: 12rem !important;
+	margin-bottom: 12rem;
 }
 
 .bswp-ml-48 {
-  margin-left: 12rem !important;
+	margin-left: 12rem;
 }
 
 .bswp-mt-56 {
-  margin-top: 14rem !important;
+	margin-top: 14rem;
 }
 
 .bswp-mr-56 {
-  margin-right: 14rem !important;
+	margin-right: 14rem;
 }
 
 .bswp-mb-56 {
-  margin-bottom: 14rem !important;
+	margin-bottom: 14rem;
 }
 
 .bswp-ml-56 {
-  margin-left: 14rem !important;
+	margin-left: 14rem;
 }
 
 .bswp-mt-64 {
-  margin-top: 16rem !important;
+	margin-top: 16rem;
 }
 
 .bswp-mr-64 {
-  margin-right: 16rem !important;
+	margin-right: 16rem;
 }
 
 .bswp-mb-64 {
-  margin-bottom: 16rem !important;
+	margin-bottom: 16rem;
 }
 
 .bswp-ml-64 {
-  margin-left: 16rem !important;
+	margin-left: 16rem;
 }
 
 .bswp-mt-auto {
-  margin-top: auto !important;
+	margin-top: auto;
 }
 
 .bswp-mr-auto {
-  margin-right: auto !important;
+	margin-right: auto;
 }
 
 .bswp-mb-auto {
-  margin-bottom: auto !important;
+	margin-bottom: auto;
 }
 
 .bswp-ml-auto {
-  margin-left: auto !important;
+	margin-left: auto;
 }
 
 .bswp-mt-px {
-  margin-top: 1px !important;
+	margin-top: 1px;
 }
 
 .bswp-mr-px {
-  margin-right: 1px !important;
+	margin-right: 1px;
 }
 
 .bswp-mb-px {
-  margin-bottom: 1px !important;
+	margin-bottom: 1px;
 }
 
 .bswp-ml-px {
-  margin-left: 1px !important;
+	margin-left: 1px;
 }
 
 .bswp-p-0 {
-  padding: 0 !important;
+	padding: 0;
 }
 
 .bswp-p-1 {
-  padding: .25rem !important;
+	padding: .25rem;
 }
 
 .bswp-p-2 {
-  padding: .5rem !important;
+	padding: .5rem;
 }
 
 .bswp-p-3 {
-  padding: .75rem !important;
+	padding: .75rem;
 }
 
 .bswp-p-4 {
-  padding: 1rem !important;
+	padding: 1rem;
 }
 
 .bswp-p-5 {
-  padding: 1.25rem !important;
+	padding: 1.25rem;
 }
 
 .bswp-p-6 {
-  padding: 1.5rem !important;
+	padding: 1.5rem;
 }
 
 .bswp-p-8 {
-  padding: 2rem !important;
+	padding: 2rem;
 }
 
 .bswp-p-10 {
-  padding: 2.5rem !important;
+	padding: 2.5rem;
 }
 
 .bswp-p-12 {
-  padding: 3rem !important;
+	padding: 3rem;
 }
 
 .bswp-p-14 {
-  padding: 3.5rem !important;
+	padding: 3.5rem;
 }
 
 .bswp-p-16 {
-  padding: 4rem !important;
+	padding: 4rem;
 }
 
 .bswp-p-20 {
-  padding: 5rem !important;
+	padding: 5rem;
 }
 
 .bswp-p-24 {
-  padding: 6rem !important;
+	padding: 6rem;
 }
 
 .bswp-p-32 {
-  padding: 8rem !important;
+	padding: 8rem;
 }
 
 .bswp-p-40 {
-  padding: 10rem !important;
+	padding: 10rem;
 }
 
 .bswp-p-48 {
-  padding: 12rem !important;
+	padding: 12rem;
 }
 
 .bswp-p-56 {
-  padding: 14rem !important;
+	padding: 14rem;
 }
 
 .bswp-p-64 {
-  padding: 16rem !important;
+	padding: 16rem;
 }
 
 .bswp-p-px {
-  padding: 1px !important;
+	padding: 1px;
 }
 
 .bswp-py-0 {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+	padding-top: 0;
+	padding-bottom: 0;
 }
 
 .bswp-px-0 {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
+	padding-left: 0;
+	padding-right: 0;
 }
 
 .bswp-py-1 {
-  padding-top: .25rem !important;
-  padding-bottom: .25rem !important;
+	padding-top: .25rem;
+	padding-bottom: .25rem;
 }
 
 .bswp-px-1 {
-  padding-left: .25rem !important;
-  padding-right: .25rem !important;
+	padding-left: .25rem;
+	padding-right: .25rem;
 }
 
 .bswp-py-2 {
-  padding-top: .5rem !important;
-  padding-bottom: .5rem !important;
+	padding-top: .5rem;
+	padding-bottom: .5rem;
 }
 
 .bswp-px-2 {
-  padding-left: .5rem !important;
-  padding-right: .5rem !important;
+	padding-left: .5rem;
+	padding-right: .5rem;
 }
 
 .bswp-py-3 {
-  padding-top: .75rem !important;
-  padding-bottom: .75rem !important;
+	padding-top: .75rem;
+	padding-bottom: .75rem;
 }
 
 .bswp-px-3 {
-  padding-left: .75rem !important;
-  padding-right: .75rem !important;
+	padding-left: .75rem;
+	padding-right: .75rem;
 }
 
 .bswp-py-4 {
-  padding-top: 1rem !important;
-  padding-bottom: 1rem !important;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
 }
 
 .bswp-px-4 {
-  padding-left: 1rem !important;
-  padding-right: 1rem !important;
+	padding-left: 1rem;
+	padding-right: 1rem;
 }
 
 .bswp-py-5 {
-  padding-top: 1.25rem !important;
-  padding-bottom: 1.25rem !important;
+	padding-top: 1.25rem;
+	padding-bottom: 1.25rem;
 }
 
 .bswp-px-5 {
-  padding-left: 1.25rem !important;
-  padding-right: 1.25rem !important;
+	padding-left: 1.25rem;
+	padding-right: 1.25rem;
 }
 
 .bswp-py-6 {
-  padding-top: 1.5rem !important;
-  padding-bottom: 1.5rem !important;
+	padding-top: 1.5rem;
+	padding-bottom: 1.5rem;
 }
 
 .bswp-px-6 {
-  padding-left: 1.5rem !important;
-  padding-right: 1.5rem !important;
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
 }
 
 .bswp-py-8 {
-  padding-top: 2rem !important;
-  padding-bottom: 2rem !important;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
 }
 
 .bswp-px-8 {
-  padding-left: 2rem !important;
-  padding-right: 2rem !important;
+	padding-left: 2rem;
+	padding-right: 2rem;
 }
 
 .bswp-py-10 {
-  padding-top: 2.5rem !important;
-  padding-bottom: 2.5rem !important;
+	padding-top: 2.5rem;
+	padding-bottom: 2.5rem;
 }
 
 .bswp-px-10 {
-  padding-left: 2.5rem !important;
-  padding-right: 2.5rem !important;
+	padding-left: 2.5rem;
+	padding-right: 2.5rem;
 }
 
 .bswp-py-12 {
-  padding-top: 3rem !important;
-  padding-bottom: 3rem !important;
+	padding-top: 3rem;
+	padding-bottom: 3rem;
 }
 
 .bswp-px-12 {
-  padding-left: 3rem !important;
-  padding-right: 3rem !important;
+	padding-left: 3rem;
+	padding-right: 3rem;
 }
 
 .bswp-py-14 {
-  padding-top: 3.5rem !important;
-  padding-bottom: 3.5rem !important;
+	padding-top: 3.5rem;
+	padding-bottom: 3.5rem;
 }
 
 .bswp-px-14 {
-  padding-left: 3.5rem !important;
-  padding-right: 3.5rem !important;
+	padding-left: 3.5rem;
+	padding-right: 3.5rem;
 }
 
 .bswp-py-16 {
-  padding-top: 4rem !important;
-  padding-bottom: 4rem !important;
+	padding-top: 4rem;
+	padding-bottom: 4rem;
 }
 
 .bswp-px-16 {
-  padding-left: 4rem !important;
-  padding-right: 4rem !important;
+	padding-left: 4rem;
+	padding-right: 4rem;
 }
 
 .bswp-py-20 {
-  padding-top: 5rem !important;
-  padding-bottom: 5rem !important;
+	padding-top: 5rem;
+	padding-bottom: 5rem;
 }
 
 .bswp-px-20 {
-  padding-left: 5rem !important;
-  padding-right: 5rem !important;
+	padding-left: 5rem;
+	padding-right: 5rem;
 }
 
 .bswp-py-24 {
-  padding-top: 6rem !important;
-  padding-bottom: 6rem !important;
+	padding-top: 6rem;
+	padding-bottom: 6rem;
 }
 
 .bswp-px-24 {
-  padding-left: 6rem !important;
-  padding-right: 6rem !important;
+	padding-left: 6rem;
+	padding-right: 6rem;
 }
 
 .bswp-py-32 {
-  padding-top: 8rem !important;
-  padding-bottom: 8rem !important;
+	padding-top: 8rem;
+	padding-bottom: 8rem;
 }
 
 .bswp-px-32 {
-  padding-left: 8rem !important;
-  padding-right: 8rem !important;
+	padding-left: 8rem;
+	padding-right: 8rem;
 }
 
 .bswp-py-40 {
-  padding-top: 10rem !important;
-  padding-bottom: 10rem !important;
+	padding-top: 10rem;
+	padding-bottom: 10rem;
 }
 
 .bswp-px-40 {
-  padding-left: 10rem !important;
-  padding-right: 10rem !important;
+	padding-left: 10rem;
+	padding-right: 10rem;
 }
 
 .bswp-py-48 {
-  padding-top: 12rem !important;
-  padding-bottom: 12rem !important;
+	padding-top: 12rem;
+	padding-bottom: 12rem;
 }
 
 .bswp-px-48 {
-  padding-left: 12rem !important;
-  padding-right: 12rem !important;
+	padding-left: 12rem;
+	padding-right: 12rem;
 }
 
 .bswp-py-56 {
-  padding-top: 14rem !important;
-  padding-bottom: 14rem !important;
+	padding-top: 14rem;
+	padding-bottom: 14rem;
 }
 
 .bswp-px-56 {
-  padding-left: 14rem !important;
-  padding-right: 14rem !important;
+	padding-left: 14rem;
+	padding-right: 14rem;
 }
 
 .bswp-py-64 {
-  padding-top: 16rem !important;
-  padding-bottom: 16rem !important;
+	padding-top: 16rem;
+	padding-bottom: 16rem;
 }
 
 .bswp-px-64 {
-  padding-left: 16rem !important;
-  padding-right: 16rem !important;
+	padding-left: 16rem;
+	padding-right: 16rem;
 }
 
 .bswp-py-px {
-  padding-top: 1px !important;
-  padding-bottom: 1px !important;
+	padding-top: 1px;
+	padding-bottom: 1px;
 }
 
 .bswp-px-px {
-  padding-left: 1px !important;
-  padding-right: 1px !important;
+	padding-left: 1px;
+	padding-right: 1px;
 }
 
 .bswp-pt-0 {
-  padding-top: 0 !important;
+	padding-top: 0;
 }
 
 .bswp-pr-0 {
-  padding-right: 0 !important;
+	padding-right: 0;
 }
 
 .bswp-pb-0 {
-  padding-bottom: 0 !important;
+	padding-bottom: 0;
 }
 
 .bswp-pl-0 {
-  padding-left: 0 !important;
+	padding-left: 0;
 }
 
 .bswp-pt-1 {
-  padding-top: .25rem !important;
+	padding-top: .25rem;
 }
 
 .bswp-pr-1 {
-  padding-right: .25rem !important;
+	padding-right: .25rem;
 }
 
 .bswp-pb-1 {
-  padding-bottom: .25rem !important;
+	padding-bottom: .25rem;
 }
 
 .bswp-pl-1 {
-  padding-left: .25rem !important;
+	padding-left: .25rem;
 }
 
 .bswp-pt-2 {
-  padding-top: .5rem !important;
+	padding-top: .5rem;
 }
 
 .bswp-pr-2 {
-  padding-right: .5rem !important;
+	padding-right: .5rem;
 }
 
 .bswp-pb-2 {
-  padding-bottom: .5rem !important;
+	padding-bottom: .5rem;
 }
 
 .bswp-pl-2 {
-  padding-left: .5rem !important;
+	padding-left: .5rem;
 }
 
 .bswp-pt-3 {
-  padding-top: .75rem !important;
+	padding-top: .75rem;
 }
 
 .bswp-pr-3 {
-  padding-right: .75rem !important;
+	padding-right: .75rem;
 }
 
 .bswp-pb-3 {
-  padding-bottom: .75rem !important;
+	padding-bottom: .75rem;
 }
 
 .bswp-pl-3 {
-  padding-left: .75rem !important;
+	padding-left: .75rem;
 }
 
 .bswp-pt-4 {
-  padding-top: 1rem !important;
+	padding-top: 1rem;
 }
 
 .bswp-pr-4 {
-  padding-right: 1rem !important;
+	padding-right: 1rem;
 }
 
 .bswp-pb-4 {
-  padding-bottom: 1rem !important;
+	padding-bottom: 1rem;
 }
 
 .bswp-pl-4 {
-  padding-left: 1rem !important;
+	padding-left: 1rem;
 }
 
 .bswp-pt-5 {
-  padding-top: 1.25rem !important;
+	padding-top: 1.25rem;
 }
 
 .bswp-pr-5 {
-  padding-right: 1.25rem !important;
+	padding-right: 1.25rem;
 }
 
 .bswp-pb-5 {
-  padding-bottom: 1.25rem !important;
+	padding-bottom: 1.25rem;
 }
 
 .bswp-pl-5 {
-  padding-left: 1.25rem !important;
+	padding-left: 1.25rem;
 }
 
 .bswp-pt-6 {
-  padding-top: 1.5rem !important;
+	padding-top: 1.5rem;
 }
 
 .bswp-pr-6 {
-  padding-right: 1.5rem !important;
+	padding-right: 1.5rem;
 }
 
 .bswp-pb-6 {
-  padding-bottom: 1.5rem !important;
+	padding-bottom: 1.5rem;
 }
 
 .bswp-pl-6 {
-  padding-left: 1.5rem !important;
+	padding-left: 1.5rem;
 }
 
 .bswp-pt-8 {
-  padding-top: 2rem !important;
+	padding-top: 2rem;
 }
 
 .bswp-pr-8 {
-  padding-right: 2rem !important;
+	padding-right: 2rem;
 }
 
 .bswp-pb-8 {
-  padding-bottom: 2rem !important;
+	padding-bottom: 2rem;
 }
 
 .bswp-pl-8 {
-  padding-left: 2rem !important;
+	padding-left: 2rem;
 }
 
 .bswp-pt-10 {
-  padding-top: 2.5rem !important;
+	padding-top: 2.5rem;
 }
 
 .bswp-pr-10 {
-  padding-right: 2.5rem !important;
+	padding-right: 2.5rem;
 }
 
 .bswp-pb-10 {
-  padding-bottom: 2.5rem !important;
+	padding-bottom: 2.5rem;
 }
 
 .bswp-pl-10 {
-  padding-left: 2.5rem !important;
+	padding-left: 2.5rem;
 }
 
 .bswp-pt-12 {
-  padding-top: 3rem !important;
+	padding-top: 3rem;
 }
 
 .bswp-pr-12 {
-  padding-right: 3rem !important;
+	padding-right: 3rem;
 }
 
 .bswp-pb-12 {
-  padding-bottom: 3rem !important;
+	padding-bottom: 3rem;
 }
 
 .bswp-pl-12 {
-  padding-left: 3rem !important;
+	padding-left: 3rem;
 }
 
 .bswp-pt-14 {
-  padding-top: 3.5rem !important;
+	padding-top: 3.5rem;
 }
 
 .bswp-pr-14 {
-  padding-right: 3.5rem !important;
+	padding-right: 3.5rem;
 }
 
 .bswp-pb-14 {
-  padding-bottom: 3.5rem !important;
+	padding-bottom: 3.5rem;
 }
 
 .bswp-pl-14 {
-  padding-left: 3.5rem !important;
+	padding-left: 3.5rem;
 }
 
 .bswp-pt-16 {
-  padding-top: 4rem !important;
+	padding-top: 4rem;
 }
 
 .bswp-pr-16 {
-  padding-right: 4rem !important;
+	padding-right: 4rem;
 }
 
 .bswp-pb-16 {
-  padding-bottom: 4rem !important;
+	padding-bottom: 4rem;
 }
 
 .bswp-pl-16 {
-  padding-left: 4rem !important;
+	padding-left: 4rem;
 }
 
 .bswp-pt-20 {
-  padding-top: 5rem !important;
+	padding-top: 5rem;
 }
 
 .bswp-pr-20 {
-  padding-right: 5rem !important;
+	padding-right: 5rem;
 }
 
 .bswp-pb-20 {
-  padding-bottom: 5rem !important;
+	padding-bottom: 5rem;
 }
 
 .bswp-pl-20 {
-  padding-left: 5rem !important;
+	padding-left: 5rem;
 }
 
 .bswp-pt-24 {
-  padding-top: 6rem !important;
+	padding-top: 6rem;
 }
 
 .bswp-pr-24 {
-  padding-right: 6rem !important;
+	padding-right: 6rem;
 }
 
 .bswp-pb-24 {
-  padding-bottom: 6rem !important;
+	padding-bottom: 6rem;
 }
 
 .bswp-pl-24 {
-  padding-left: 6rem !important;
+	padding-left: 6rem;
 }
 
 .bswp-pt-32 {
-  padding-top: 8rem !important;
+	padding-top: 8rem;
 }
 
 .bswp-pr-32 {
-  padding-right: 8rem !important;
+	padding-right: 8rem;
 }
 
 .bswp-pb-32 {
-  padding-bottom: 8rem !important;
+	padding-bottom: 8rem;
 }
 
 .bswp-pl-32 {
-  padding-left: 8rem !important;
+	padding-left: 8rem;
 }
 
 .bswp-pt-40 {
-  padding-top: 10rem !important;
+	padding-top: 10rem;
 }
 
 .bswp-pr-40 {
-  padding-right: 10rem !important;
+	padding-right: 10rem;
 }
 
 .bswp-pb-40 {
-  padding-bottom: 10rem !important;
+	padding-bottom: 10rem;
 }
 
 .bswp-pl-40 {
-  padding-left: 10rem !important;
+	padding-left: 10rem;
 }
 
 .bswp-pt-48 {
-  padding-top: 12rem !important;
+	padding-top: 12rem;
 }
 
 .bswp-pr-48 {
-  padding-right: 12rem !important;
+	padding-right: 12rem;
 }
 
 .bswp-pb-48 {
-  padding-bottom: 12rem !important;
+	padding-bottom: 12rem;
 }
 
 .bswp-pl-48 {
-  padding-left: 12rem !important;
+	padding-left: 12rem;
 }
 
 .bswp-pt-56 {
-  padding-top: 14rem !important;
+	padding-top: 14rem;
 }
 
 .bswp-pr-56 {
-  padding-right: 14rem !important;
+	padding-right: 14rem;
 }
 
 .bswp-pb-56 {
-  padding-bottom: 14rem !important;
+	padding-bottom: 14rem;
 }
 
 .bswp-pl-56 {
-  padding-left: 14rem !important;
+	padding-left: 14rem;
 }
 
 .bswp-pt-64 {
-  padding-top: 16rem !important;
+	padding-top: 16rem;
 }
 
 .bswp-pr-64 {
-  padding-right: 16rem !important;
+	padding-right: 16rem;
 }
 
 .bswp-pb-64 {
-  padding-bottom: 16rem !important;
+	padding-bottom: 16rem;
 }
 
 .bswp-pl-64 {
-  padding-left: 16rem !important;
+	padding-left: 16rem;
 }
 
 .bswp-pt-px {
-  padding-top: 1px !important;
+	padding-top: 1px;
 }
 
 .bswp-pr-px {
-  padding-right: 1px !important;
+	padding-right: 1px;
 }
 
 .bswp-pb-px {
-  padding-bottom: 1px !important;
+	padding-bottom: 1px;
 }
 
 .bswp-pl-px {
-  padding-left: 1px !important;
+	padding-left: 1px;
 }
