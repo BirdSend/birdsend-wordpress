@@ -6,8 +6,7 @@
  * Description: Official BirdSend plugin to integrate with WordPress.
  * Author: BirdSend
  * Author URI: https://birdsend.co/
- * License: GPL2
- * Domain Path: /languages/
+ * License: GPLv2 or later
  */
 
 /*
