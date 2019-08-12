@@ -19,7 +19,7 @@ function bswp_app_url( $path = '' ) {
  * @return string
  */
 function bswp_api_url( $path = '' ) {
-	return rtrim( get_option( 'bswp_app_url', BSWP_API_URL ), '/' ) . '/' . $path;
+	return rtrim( get_option( 'bswp_api_url', BSWP_API_URL ), '/' ) . '/' . $path;
 }
 
 /**
