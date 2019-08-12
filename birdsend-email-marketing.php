@@ -5,7 +5,6 @@
  * Plugin URI: https://birdsend.co/
  * Description: Official BirdSend plugin to integrate with WordPress.
  * Author: BirdSend
- * Author URI: https://birdsend.co/
  * License: GPLv2 or later
  */
 
