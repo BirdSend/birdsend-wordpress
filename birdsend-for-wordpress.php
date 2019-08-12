@@ -44,8 +44,13 @@ define( 'BSWP_JS', BSWP_URL . 'assets/js/' );
 define( 'BSWP_CSS', BSWP_URL . 'assets/css/' );
 define( 'BSWP_IMG', BSWP_URL . 'assets/img/' );
 
-define( 'BSWP_APP_URL', 'https://app.birdsend.co/' );
-define( 'BSWP_API_URL', 'https://api.birdsend.co/' );
+//define( 'BSWP_APP_URL', 'https://app.birdsend.co/' );
+//define( 'BSWP_API_URL', 'https://api.birdsend.co/' );
+
+//Local Server
+define( 'BSWP_APP_URL', 'https://bird.co/' );
+define( 'BSWP_API_URL', 'https://bird.co/' );
+
 
 // load composer packages
 require_once( BSWP_PATH . 'vendor/autoload.php');
@@ -54,6 +59,7 @@ require_once( BSWP_PATH . 'vendor/autoload.php');
 require_once( BSWP_LIBS . 'helpers.php' );
 require_once( BSWP_LIBS . 'pixel.php' );
 require_once( BSWP_LIBS . 'webhook.php' );
+require_once( BSWP_LIBS . 'woocommerce.php' );
 
 // load admin files
 if ( is_admin() ) {
