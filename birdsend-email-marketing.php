@@ -36,7 +36,7 @@ define( 'BSWP_PATH', plugin_dir_path(__FILE__) );
 define( 'BSWP_BASENAME', plugin_basename( __FILE__ ) );
 define( 'BSWP_LIBS', BSWP_PATH . 'libs/' );
 
-define( 'BSWP_INC', BSWP_PATH . 'includes/');
+define( 'BSWP_INC', BSWP_PATH . 'includes/' );
 
 define( 'BSWP_JS', BSWP_URL . 'assets/js/' );
 define( 'BSWP_CSS', BSWP_URL . 'assets/css/' );

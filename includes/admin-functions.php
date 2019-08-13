@@ -13,11 +13,14 @@ function bswp_admin_auth_site() {
 				exit;
 			}
 
-			update_user_meta( get_current_user_id(), 'bswp_client', [ 'client_id' => $_GET[ 'client_id' ], 'client_secret' => $_GET[ 'client_secret' ]] );
+			$client_id = (int) $_GET[ 'client_id' ];
+			$client_secret = sanitize_text_field( $_GET[ 'client_secret' ] );
+
+			update_user_meta( get_current_user_id(), 'bswp_client', [ 'client_id' => $client_id, 'client_secret' => $client_secret ] );
 			
 			$query = http_build_query([
-				'client_id' => $_GET[ 'client_id' ],
-				'client_secret' => $_GET[ 'client_secret' ],
+				'client_id' => $client_id,
+				'client_secret' => $client_secret,
 				'redirect_uri' => admin_url( 'admin.php?page=bswp-settings&action=auth-site' ),
 				'response_type' => 'code',
 				'scope' => '',
@@ -119,8 +122,12 @@ function bswp_admin_form_actions() {
 	if (! empty( $_GET[ 'page' ] ) && $_GET[ 'page' ] == 'bswp-settings' && ! empty( $_POST[ 'submit' ] ) ) {
 		switch ( $_POST[ 'submit' ] ) {
 			case 'developer':
-				update_option( 'bswp_app_url', $_POST[ 'bswp_app_url' ] );
-				update_option( 'bswp_api_url', $_POST[ 'bswp_api_url' ] );
+				$app_url = wp_http_validate_url( $_POST[ 'bswp_app_url' ] );
+				$api_url = wp_http_validate_url( $_POST[ 'bswp_api_url' ] );
+				
+				update_option( 'bswp_app_url', $app_url );
+				update_option( 'bswp_api_url', $api_url );
+				
 				wp_redirect( 'admin.php?page=bswp-settings&action=developer' );
 				exit;
 		}

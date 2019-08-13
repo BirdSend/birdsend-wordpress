@@ -11,15 +11,17 @@ BirdSend is an email marketing tool exclusively for content creators
 
 == Description ==
 
-Easily display the opt-in forms you have created in your [BirdSend email marketing](https://birdsend.co/?utm_medium=plugins&utm_source=wordpress-plugin) account in any of your WordPress site.
+[BirdSend](https://birdsend.co/?utm_medium=plugin&utm_source=wordpress) is an email marketing tool for content creators.
 
-This plugin makes it easy to embed the web forms to any of your WordPress post and page, including custom posts created by other plugins. 
+With this plugin, you'll be able to easily display BirdSend opt-in forms into your WordPress site — whether it's posts, pages, or custom post types created by other plugins.
 
-Simply install and activate this plugin, and connect it with your existing BirdSend account. Display rules and placement of a form can be controlled from your [BirdSend Dashboard](https://app.birdsend.co/?utm_medium=plugins&utm_source=wordpress-plugin).
+Simply install and activate this plugin, and connect it with your existing BirdSend account.
 
-Lastly, this plugin automatically inserts the BirdSend Pixel that allows you to track any goal or conversion.
+Display rules and placement of your opt-in forms can be controlled from your [BirdSend Account](https://app.birdsend.co/?utm_medium=plugin&utm_source=wordpress).
 
-PS: You'll need a working [BirdSend account](https://birdsend.co/?utm_medium=plugins&utm_source=wordpress-plugin) to use this plugin.
+This plugin also automatically inserts the BirdSend Pixel into your WordPress site to allow you to track conversions.
+
+You'll need an active BirdSend account to use this plugin.
 
 == Installation ==
 

@@ -29,11 +29,11 @@ function bswp_inject_pixel() {
 		ptype: '<?php echo $postType; ?>',
 		pcats: [ '<?php echo implode( "','", $categories ); ?>' ],
 		ptags: [ '<?php echo implode( "','", $tags ); ?>' ],
-	}
+	};
+	<?php echo bswp_pixel_code(); ?>
 	</script>
 	
 	<?php
-	echo bswp_pixel_code() . "\n";
 	echo '<!-- BirdSend Pixel End -->' . "\n";
 }
 add_action('wp_head', 'bswp_inject_pixel');

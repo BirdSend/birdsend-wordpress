@@ -22,10 +22,10 @@ function bswp_admin_scripts( $hook ) {
 	
 	if ( !in_array($hook, $panels) ) return;
 
-	wp_register_script( 'materialize', 'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js', array( 'jquery' ), '1.0.0', true);
+	wp_register_script( 'materialize', BSWP_JS . 'materialize.min.js', array( 'jquery' ), '1.0.0', true);
 	wp_enqueue_script( 'bwsp-admin', BSWP_JS . 'admin.js', array( 'materialize' ), '1.0.0', true);
 	wp_enqueue_style( 'material-icons', '//fonts.googleapis.com/icon?family=Material+Icons' );
-	wp_enqueue_style( 'materialize', 'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css' );
+	wp_enqueue_style( 'materialize', BSWP_CSS . 'materialize.min.css' );
 }
 add_action( 'admin_enqueue_scripts', 'bswp_admin_scripts' );
 
