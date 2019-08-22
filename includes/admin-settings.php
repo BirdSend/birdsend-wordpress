@@ -29,7 +29,7 @@
 									<button type="submit" id="bswp-disconnect-btn" class="btn-flat transparent btn-small red-text darken-2"><i class="material-icons left bswp-mr-1">close</i>Disconnect My BirdSend Account</button>
 								</div>
 							</form>
-						
+							
 						<?php } else { ?>
 						
 							<p class="bswp-my-2">Please <a href="https://birdsend.co/pricing" target="_blank">create a BirdSend account</a> or connect to an existing account.</p>

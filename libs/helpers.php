@@ -8,7 +8,7 @@
  * @return string
  */
 function bswp_app_url( $path = '' ) {
-	return rtrim( get_option( 'bswp_app_url', BSWP_APP_URL ), '/' ) . '/' . $path;
+	return esc_url( rtrim( get_option( 'bswp_app_url', BSWP_APP_URL ), '/' ) . '/' . $path );
 }
 
 /**
@@ -19,7 +19,7 @@ function bswp_app_url( $path = '' ) {
  * @return string
  */
 function bswp_api_url( $path = '' ) {
-	return rtrim( get_option( 'bswp_app_url', BSWP_API_URL ), '/' ) . '/' . $path;
+	return esc_url( rtrim( get_option( 'bswp_api_url', BSWP_API_URL ), '/' ) . '/' . $path );
 }
 
 /**
@@ -43,7 +43,7 @@ function bswp_request_token( $client_id, $client_secret, $code, $scope = '' ) {
 			]
 		]);	
 		$response = json_decode( (string) $response->getBody(), true );
-		update_option( 'bswp_token', $response );
+		update_option( 'bswp_token', sanitize_text_field( $response[ 'access_token' ] ) );
 
 		return $response;
 	} catch ( GuzzleHttp\Exception\ClientException $e ) {
@@ -62,10 +62,10 @@ function bswp_request_token( $client_id, $client_secret, $code, $scope = '' ) {
  * @return string|bool
  */
 function bswp_token() {
-	if (! ( $token = get_option( 'bswp_token' ) ) || ! isset( $token[ 'access_token' ]) ) {
+	if (! $token = get_option( 'bswp_token' ) ) {
 		return false;
 	}
-	return $token[ 'access_token' ];
+	return is_array( $token ) ? $token[ 'access_token' ] : $token;
 }
 
 /**
@@ -74,10 +74,10 @@ function bswp_token() {
  * @return string
  */
 function bswp_pixel_code() {
-	if (! $pixel_code = get_option( 'bswp_pixel_code' ) ) {
+	if (! $code = get_option( 'bswp_pixel_code' ) ) {
 		return bswp_get_pixel_code();
 	}
-	return $pixel_code;
+	return bswp_format_pixel_code( $code );
 }
 
 /**
@@ -87,10 +87,27 @@ function bswp_pixel_code() {
  */
 function bswp_get_pixel_code() {
 	if ( $response = bswp_api_request( 'GET', 'pixels/code' ) ) {
-		update_option( 'bswp_pixel_code', $response[ 'code' ]);
-		return $response[ 'code' ];
+
+		$replace = [ '<script>', '</script>' ];
+		$code = $response[ 'code' ];
+		$code = trim( str_replace( $replace, '', $code ) );
+
+		update_option( 'bswp_pixel_code', sanitize_text_field( $code ) );
+		return bswp_format_pixel_code( $code );
 	}
 	return false;
+}
+
+/**
+ * Format pixel code
+ *
+ * @param string $code
+ *
+ * @return string
+ */
+function bswp_format_pixel_code( $code ) {
+	$replace = [ '<script>', '</script>' ];
+	return wp_kses( trim( str_replace( $replace, '', $code ) ) );
 }
 
 /**
@@ -120,8 +137,8 @@ function bswp_api_request( $method, $path, $data = array() ) {
 			$options[ 'form_params' ] = $data;
 		}
 
-		$response = $http->request( $method, bswp_api_url( 'v1/' . $path), $options);
-		$response = json_decode((string) $response->getBody(), true);
+		$response = $http->request( $method, bswp_api_url( 'v1/' . $path ), $options);
+		$response = json_decode( (string) $response->getBody(), true );
 
 		return $response;
 	} catch ( GuzzleHttp\Exception\ClientException $e ) {

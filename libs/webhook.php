@@ -20,7 +20,7 @@ add_action( 'template_redirect', 'bswp_webhook_handler', 2 );
  */
 function bswp_webhook_get_metadata() {
 	$data = [];
-	$meta = isset( $_GET['bswp_meta_keys'] ) ? $_GET['bswp_meta_keys'] : [];
+	$meta = (array) ( isset( $_GET[ 'bswp_meta_keys' ] ) ? $_GET[ 'bswp_meta_keys' ] : [] );
 
 	if ( in_array( 'post-types', $meta ) ) {
 		$post_types_args = [ 'public' => true ];
@@ -39,15 +39,12 @@ function bswp_webhook_get_metadata() {
 
 	if ( in_array( 'post-tags', $meta ) ) {
 		$post_tags_args = [ 'hide_empty' => false ];
-		$data['post_tags'] = array_map(
-			function ( $tag ) {
-				return [
-					'slug' => $tag->slug,
-					'name' => $tag->name,
-				];
-			},
-			get_tags( $post_tags_args )
-		);
+		$data[ 'post_tags' ] = array_map( function ( $tag ) {
+			return [
+				'slug' => $tag->slug,
+				'name' => $tag->name,
+			];
+		}, get_tags( $post_tags_args ) );
 	}
 
 	if ( in_array( 'post-categories', $meta ) ) {
