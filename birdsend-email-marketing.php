@@ -49,7 +49,6 @@ define( 'BSWP_API_URL', 'https://api.birdsend.co/' );
 require_once( BSWP_PATH . 'vendor/autoload.php');
 
 // load libraries
-require_once( BSWP_LIBS . 'update.php' );
 require_once( BSWP_LIBS . 'helpers.php' );
 require_once( BSWP_LIBS . 'pixel.php' );
 require_once( BSWP_LIBS . 'webhook.php' );
@@ -59,3 +58,11 @@ if ( is_admin() ) {
     require_once( BSWP_INC . 'admin.php' );
     require_once( BSWP_INC . 'admin-functions.php' );
 }
+
+// update checker
+require_once( BSWP_LIBS . 'plugin-update-checker/plugin-update-checker.php' );
+$bswpUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+	'https://github.com/BirdSend/birdsend-wordpress/',
+	__FILE__,
+	'birdsend-email-marketing'
+);
