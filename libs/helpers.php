@@ -47,13 +47,13 @@ function bswp_request_token( $client_id, $client_secret, $code, $scope = '' ) {
 		update_option( 'bswp_token', sanitize_text_field( $response[ 'access_token' ] ) );
 
 		return $response;
-	} catch ( GuzzleHttp\Exception\ClientException $e ) {
+	} catch ( \Exception $e ) {
 		if ( WP_DEBUG ) {
 			echo $e->getMessage();
 		} else {
 			wp_redirect( admin_url( 'admin.php?page=bswp-settings&error=cant_connect' ) );
-			exit;
 		}
+		exit;
 	}
 }
 
@@ -142,7 +142,7 @@ function bswp_api_request( $method, $path, $data = array() ) {
 		$response = json_decode( (string) $response->getBody(), true );
 
 		return $response;
-	} catch ( GuzzleHttp\Exception\ClientException $e ) {
+	} catch ( \Exception $e ) {
 		if ( WP_DEBUG ) {
 			echo $e->getMessage();
 		}
