@@ -49,6 +49,7 @@ define( 'BSWP_API_URL', 'https://api.birdsend.co/' );
 require_once( BSWP_PATH . 'vendor/autoload.php');
 
 // load libraries
+require_once( BSWP_LIBS . 'update.php' );
 require_once( BSWP_LIBS . 'helpers.php' );
 require_once( BSWP_LIBS . 'pixel.php' );
 require_once( BSWP_LIBS . 'webhook.php' );
