@@ -8,7 +8,7 @@
  * @return string
  */
 function bswp_app_url( $path = '' ) {
-	return rtrim( get_option( 'bswp_app_url', BSWP_APP_URL ), '/' ) . '/' . $path;
+	return esc_url( rtrim( get_option( 'bswp_app_url', BSWP_APP_URL ), '/' ) . '/' . $path );
 }
 
 /**
@@ -19,7 +19,7 @@ function bswp_app_url( $path = '' ) {
  * @return string
  */
 function bswp_api_url( $path = '' ) {
-	return rtrim( get_option( 'bswp_api_url', BSWP_API_URL ), '/' ) . '/' . $path;
+	return esc_url( rtrim( get_option( 'bswp_api_url', BSWP_API_URL ), '/' ) . '/' . $path );
 }
 
 /**
@@ -108,7 +108,7 @@ function bswp_get_pixel_code() {
  */
 function bswp_format_pixel_code( $code ) {
 	$replace = [ '<script>', '</script>' ];
-	return trim( str_replace( $replace, '', $code ) );
+	return wp_kses( trim( str_replace( $replace, '', $code ) ) );
 }
 
 /**
