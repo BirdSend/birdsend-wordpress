@@ -1,13 +1,11 @@
 <?php
 /*
- * Plugin Name: BirdSend for WordPress
+ * Plugin Name: BirdSend Email Marketing
  * Version: 1.0.0
  * Plugin URI: https://birdsend.co/
- * Description: Official plugin to integrate BirdSend with WordPress.
- * Author: XooGuu Team
- * Author URI: https://birdsend.co/
- * License: GPL2
- * Domain Path: /languages/
+ * Description: Official BirdSend plugin to integrate with WordPress.
+ * Author: BirdSend
+ * License: GPLv2 or later
  */
 
 /*
@@ -36,12 +34,28 @@ define( 'BSWP_DB_VERSION', '0.1' );
 define( 'BSWP_URL', plugin_dir_url(__FILE__) );
 define( 'BSWP_PATH', plugin_dir_path(__FILE__) );
 define( 'BSWP_BASENAME', plugin_basename( __FILE__ ) );
+define( 'BSWP_LIBS', BSWP_PATH . 'libs/' );
 
-define( 'BSWP_INC', BSWP_PATH . 'includes/');
+define( 'BSWP_INC', BSWP_PATH . 'includes/' );
 
 define( 'BSWP_JS', BSWP_URL . 'assets/js/' );
 define( 'BSWP_CSS', BSWP_URL . 'assets/css/' );
 define( 'BSWP_IMG', BSWP_URL . 'assets/img/' );
 
-// load files
-require_once( BSWP_INC . 'admin.php' );
+define( 'BSWP_APP_URL', 'https://app.birdsend.co/' );
+define( 'BSWP_API_URL', 'https://api.birdsend.co/' );
+
+// load composer packages
+require_once( BSWP_PATH . 'vendor/autoload.php');
+
+// load libraries
+require_once( BSWP_LIBS . 'update.php' );
+require_once( BSWP_LIBS . 'helpers.php' );
+require_once( BSWP_LIBS . 'pixel.php' );
+require_once( BSWP_LIBS . 'webhook.php' );
+
+// load admin files
+if ( is_admin() ) {
+    require_once( BSWP_INC . 'admin.php' );
+    require_once( BSWP_INC . 'admin-functions.php' );
+}
