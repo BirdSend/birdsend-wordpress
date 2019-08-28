@@ -108,7 +108,7 @@ function bswp_get_pixel_code() {
  */
 function bswp_format_pixel_code( $code ) {
 	$replace = [ '<script>', '</script>' ];
-	return wp_kses( trim( str_replace( $replace, '', $code ) ) );
+	return wp_kses( trim( str_replace( $replace, '', $code ) ), '' );
 }
 
 /**
