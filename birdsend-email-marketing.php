@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: BirdSend Email Marketing
- * Version: 1.0.0
+ * Version: 1.0.1
  * Plugin URI: https://birdsend.co/
  * Description: Official BirdSend plugin to integrate with WordPress.
  * Author: BirdSend
@@ -28,7 +28,7 @@ Copyright 2018 XooGuu, LLC.
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'BSWP_VERSION', '1.0.0' );
+define( 'BSWP_VERSION', '1.0.1' );
 define( 'BSWP_DB_VERSION', '0.1' );
 
 define( 'BSWP_URL', plugin_dir_url(__FILE__) );
@@ -49,7 +49,9 @@ define( 'BSWP_API_URL', 'https://api.birdsend.co/' );
 // load composer packages.
 require_once( BSWP_PATH . 'vendor/autoload.php');
 
-// load libraries.
+
+// load libraries
+require_once( BSWP_LIBS . 'update.php' );
 require_once( BSWP_LIBS . 'helpers.php' );
 require_once( BSWP_LIBS . 'pixel.php' );
 require_once( BSWP_LIBS . 'webhook.php' );

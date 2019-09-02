@@ -16,9 +16,14 @@ function bswp_inject_pixel() {
 		return $category->slug;
 	}, get_the_category() );
 	
-	$tags = array_map( function ( $tag ) {
-		return $tag->slug;
-	}, get_the_tags() );
+	$tags = '';
+	$allTags = get_the_tags();
+	if ( is_array($allTags) ) {
+		$tags = array_map( function ( $tag ) {
+			return $tag->slug;
+		}, get_the_tags() );
+		$tags = implode( "','", $tags );
+	}
 
 	echo '<!-- BirdSend Pixel Start -->' . "\n";
 	?>
@@ -28,7 +33,7 @@ function bswp_inject_pixel() {
 		wp: true,
 		ptype: '<?php echo $postType; ?>',
 		pcats: [ '<?php echo implode( "','", $categories ); ?>' ],
-		ptags: [ '<?php echo implode( "','", $tags ); ?>' ],
+		ptags: [ '<?php echo $tags ?>' ],
 	};
 	<?php echo bswp_pixel_code(); ?>
 	</script>

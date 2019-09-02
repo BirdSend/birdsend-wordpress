@@ -26,7 +26,7 @@ function bswp_admin_auth_site() {
 				'scope' => '',
 			] );
 			
-			wp_redirect(bswp_app_url( 'oauth/authorize?'.$query) );
+			wp_redirect(bswp_app_url( 'oauth/authorize' ).'?'.$query );
 			exit;
 		}
 
