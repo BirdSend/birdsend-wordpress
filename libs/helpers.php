@@ -41,8 +41,7 @@ function bswp_request_token( $client_id, $client_secret, $code, $scope = '' ) {
 				'redirect_uri' => admin_url( 'admin.php?page=bswp-settings&action=auth-site' ),
 				'code' => $code,
 			]
-		]);
-		
+		]);	
 		$response = json_decode( (string) $response->getBody(), true );
 		update_option( 'bswp_token', sanitize_text_field( $response[ 'access_token' ] ) );
 
@@ -156,5 +155,90 @@ function bswp_api_request( $method, $path, $data = array() ) {
  * @return bool
  */
 function bswp_is_enabled() {
-	return !! bswp_token();
+    return !! bswp_token();
+}
+
+/**
+ * Get Product Category
+ * 
+ */
+
+function bswp_wc_categories($args = array()) {
+    $data         = array();
+    $taxonomy     = 'product_cat';
+    $orderby      = 'name';  
+    $show_count   = 0;      // 1 for yes, 0 for no
+    $pad_counts   = 0;      // 1 for yes, 0 for no
+    $hierarchical = 1;      // 1 for yes, 0 for no  
+    $title        = '';  
+    $empty        = 0;
+
+    if (empty($args)) {
+        $args = array(
+            'taxonomy'     => $taxonomy,
+            'child_of'     => 0,
+            'parent'       => 0,
+            'orderby'      => $orderby,
+            'show_count'   => $show_count,
+            'pad_counts'   => $pad_counts,
+            'hierarchical' => $hierarchical,
+            'title_li'     => $title,
+            'hide_empty'   => $empty
+        );
+    }
+    $all_categories = get_categories( $args );
+    foreach ($all_categories as $cat) {
+        $category_id = $cat->term_id;       
+        $data[$category_id]['id']   = $category_id;
+        $data[$category_id]['label'] = $cat->name; 
+        $data[$category_id]['slug'] = $cat->slug;
+        $args2 = array(
+                'taxonomy'     => $taxonomy,
+                'child_of'     => 0,
+                'parent'       => $category_id,
+                'orderby'      => $orderby,
+                'show_count'   => $show_count,
+                'pad_counts'   => $pad_counts,
+                'hierarchical' => $hierarchical,
+                'title_li'     => $title,
+                'hide_empty'   => $empty
+        );
+        $childs = bswp_wc_categories( $args2 );
+        if (!empty($childs)) {
+            $data[$category_id]['children'] = $childs;
+        }   
+    }
+    return $data;
+}
+
+/**
+ * Reset Product Category
+ * 
+ */
+function bswp_reset_array($data) {
+    $data = array_values($data);
+    foreach ($data as $key => $val) {
+        if (isset($val['children'])) {
+            $child = array_values($val['children']);
+            $data[$key]['children'] = $child;
+            foreach ($child as $key2 => $val2) {
+                if (isset($val2['children'])) {
+                    $child2 = array_values($val2['children']);
+                    $data[$key]['children'][$key2]['children'] = $child2;
+                }
+            }        
+        }
+    }
+    return $data;
+}
+
+
+function bwsp_get_parent($category_id) {
+
+	$parents = array();
+	$categories = get_ancestors( $category_id, 'product_cat' ); 
+	foreach($categories as $cat) {
+		array_push($parents, $cat);
+	} 
+	return $parents;
 }
