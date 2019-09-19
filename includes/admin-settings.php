@@ -29,6 +29,10 @@
 									<button type="submit" id="bswp-disconnect-btn" class="btn-flat transparent btn-small red-text darken-2"><i class="material-icons left bswp-mr-1">close</i>Disconnect My BirdSend Account</button>
 								</div>
 							</form>
+
+							<div class="bswp-my-4">
+								<em>Note: For WooCommerce integration, simply go back to the <a href="<?php echo bswp_app_url('user/rules') ?>" target="_blank">Rules page</a> inside your BirdSend account to set it up.</em>
+							</div>
 							
 						<?php } else { ?>
 						
