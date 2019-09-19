@@ -53,7 +53,9 @@ require_once( BSWP_PATH . 'vendor/autoload.php');
 // load libraries
 require_once( BSWP_LIBS . 'update.php' );
 require_once( BSWP_LIBS . 'helpers.php' );
+require_once( BSWP_LIBS . 'functions.php' );
 require_once( BSWP_LIBS . 'pixel.php' );
+require_once( BSWP_LIBS . 'shortcodes.php' );
 require_once( BSWP_LIBS . 'webhook.php' );
 require_once( BSWP_LIBS . 'woocommerce.php' );
 
