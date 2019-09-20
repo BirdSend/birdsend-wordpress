@@ -133,8 +133,12 @@ function bswp_api_request( $method, $path, $data = array() ) {
 			)
 		);
 
-		if ( $data) {
-			$options[ 'form_params' ] = $data;
+		if ( $data ) {
+			if ( 'get' == strtolower( $method ) ) {
+				$options[ 'query' ] = $data;
+			} else {
+				$options[ 'form_params' ] = $data;
+			}
 		}
 
 		$response = $http->request( $method, bswp_api_url( 'v1/' . $path ), $options);

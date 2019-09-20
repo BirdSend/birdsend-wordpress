@@ -62,6 +62,6 @@ require_once( BSWP_LIBS . 'widgets.php' );
 
 // load admin files.
 if ( is_admin() ) {
-    require_once( BSWP_INC . 'admin.php' );
-    require_once( BSWP_INC . 'admin-functions.php' );
+	require_once( BSWP_INC . 'admin.php' );
+	require_once( BSWP_INC . 'admin-functions.php' );
 }
