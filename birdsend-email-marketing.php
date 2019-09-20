@@ -58,6 +58,7 @@ require_once( BSWP_LIBS . 'pixel.php' );
 require_once( BSWP_LIBS . 'shortcodes.php' );
 require_once( BSWP_LIBS . 'webhook.php' );
 require_once( BSWP_LIBS . 'woocommerce.php' );
+require_once( BSWP_LIBS . 'widgets.php' );
 
 // load admin files.
 if ( is_admin() ) {

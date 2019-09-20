@@ -134,3 +134,16 @@ function bswp_admin_form_actions() {
 	}
 }
 add_action( 'admin_init', 'bswp_admin_form_actions' );
+
+// ------------------------------------------------------------------------------------------------------------------
+
+add_action( 'wp_ajax_bswp_ajax_get_forms', 'bswp_ajax_get_forms' );
+function bswp_ajax_get_forms() {
+	$params = [ 'keyword' => 'active:1;rich:1', 'order_by' => 'name', 'sort' => 'asc', 'per_page' => 50 ];
+	$response = [];
+	if ( $forms = bswp_api_request( 'GET', 'forms?' . http_build_query( $params ) ) ) {
+		$response = $forms[ 'data' ];
+	}
+	echo json_encode( $response );
+	wp_die();
+}
