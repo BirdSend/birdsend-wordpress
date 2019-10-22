@@ -30,6 +30,8 @@ Upload the BirdSend Email Marketing plugin to your blog, Activate it, then conne
 1, 2, 3: You're done!
 
 == Changelog ==
+= 1.0.4 =
+* Added support BirdSend abandon cart rules
 
 = 1.0.3 =
 * Added support to display in-content form triggers (top, middle, after, every X paragraphs of posts/pages).
