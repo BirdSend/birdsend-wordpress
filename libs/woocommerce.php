@@ -78,7 +78,7 @@ add_action( 'woocommerce_order_status_refunded', 'refund_success', 1 );
 function new_order( $order_id ) {
  	bswo_post_order( $order_id, 'abandon' );
 }
-add_action( 'woocommerce_new_order', 'new_order', 1 );
+add_action( 'woocommerce_update_order', 'new_order', 1 );
 
 function cancel_subscription( $subscription ) {
 	$orders =  $subscription->get_related_orders();
