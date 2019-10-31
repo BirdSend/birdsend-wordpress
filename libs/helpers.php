@@ -137,10 +137,10 @@ function bswp_api_request( $method, $path, $data = array() ) {
 			if ( 'get' == strtolower( $method ) ) {
 				$options[ 'query' ] = $data;
 			} else {
-				$options[ 'form_params' ] = $data;
+				$options[ 'json' ] = $data;
 			}
 		}
-
+			
 		$response = $http->request( $method, bswp_api_url( 'v1/' . $path ), $options);
 		$response = json_decode( (string) $response->getBody(), true );
 

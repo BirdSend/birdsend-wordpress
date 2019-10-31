@@ -23,7 +23,7 @@ function bswp_admin_auth_site() {
 				'client_secret' => $client_secret,
 				'redirect_uri' => admin_url( 'admin.php?page=bswp-settings&action=auth-site' ),
 				'response_type' => 'code',
-				'scope' => '',
+				'scope' => 'write',
 			] );
 			
 			wp_redirect(bswp_app_url( 'oauth/authorize' ).'?'.$query );
