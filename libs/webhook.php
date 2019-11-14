@@ -73,7 +73,7 @@ add_action( 'bswp_webhook_get_metadata', 'bswp_webhook_get_metadata' );
 function bswp_webhook_get_product() {
 	$cat_slug = isset( $_GET['bswp_cat_slug'] ) ? $_GET['bswp_cat_slug'] : [];
 	$args = array(
-		'limit' => 0,
+		'limit' => -1,
 	);
 	if ( $cat_slug ) {
 		$args['category'] = [ $cat_slug ];
