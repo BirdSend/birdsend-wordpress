@@ -73,7 +73,7 @@ add_action( 'bswp_webhook_get_metadata', 'bswp_webhook_get_metadata' );
 function bswp_webhook_get_product() {
 	$cat_slug = isset( $_GET['bswp_cat_slug'] ) ? $_GET['bswp_cat_slug'] : [];
 	$args = array(
-		'limit' => 0,
+		'limit' => -1,
 	);
 	if ( $cat_slug ) {
 		$args['category'] = [ $cat_slug ];
@@ -111,3 +111,16 @@ function bswp_webhook_get_categories() {
 	echo json_encode( $data );
 }
 add_action( 'bswp_webhook_get_categories', 'bswp_webhook_get_categories' );
+
+/**
+ * Webhook handler : Get woocommerce order status
+ * 
+ * @return JSON
+ */
+function bswp_webhook_get_order_by_id() {
+	$order_id = $_GET['id'];
+	header( 'Content-Type: application/json' );
+	$order =  wc_get_order( $order_id );
+	echo json_encode( $order->get_data());
+}
+add_action( 'bswp_webhook_get_order_by_id', 'bswp_webhook_get_order_by_id');
