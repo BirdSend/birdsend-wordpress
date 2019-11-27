@@ -85,7 +85,7 @@ function bswp_pixel_code() {
 	if ( ! $code ) {
 		return bswp_get_pixel_code();
 	}
-	return esc_js( bswp_format_pixel_code( $code ) );
+	return bswp_format_pixel_code( $code );
 }
 
 /**
@@ -102,7 +102,7 @@ function bswp_get_pixel_code() {
 		$code    = trim( str_replace( $replace, '', $code ) );
 
 		update_option( 'bswp_pixel_code', sanitize_text_field( $code ) );
-		return esc_js( bswp_format_pixel_code( $code ) );
+		return bswp_format_pixel_code( $code );
 	}
 	return false;
 }
@@ -116,7 +116,7 @@ function bswp_get_pixel_code() {
  */
 function bswp_format_pixel_code( $code ) {
 	$replace = array( '<script>', '</script>' );
-	return trim( str_replace( $replace, '', $code ) );
+	return wp_kses( trim( str_replace( $replace, '', $code ) ), '' );
 }
 
 /**

@@ -40,7 +40,7 @@ function bswp_settings() {
 	$action = '';
 
 	if ( isset( $_GET['action'] ) ) {
-		$action = sanitize_key( $_GET['action'] );
+		$action = sanitize_text_field( $_GET['action'] );
 	}
 
 	switch ( $action ) {

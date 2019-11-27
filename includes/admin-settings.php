@@ -23,7 +23,7 @@
 								<div style="display: none;">
 									<input type="hidden" name="disconnect" value="1" />
 									<input type="hidden" name="site_url" value="<?php echo esc_url( get_site_url() ); ?>" />
-									<input type="hidden" name="redirect" value="<?php echo esc_url( admin_url( 'admin.php?page=bswp-settings&action=disconnect-site' ) ); ?>" />
+									<input type="hidden" name="redirect" value="<?php echo esc_url_raw( admin_url( 'admin.php?page=bswp-settings&action=disconnect-site' ) ); ?>" />
 									<?php wp_nonce_field( 'birdsend-disconnect-site', 'nonce' ); ?>
 								</div>
 								<div class="bswp-my-2 right-align">
@@ -40,7 +40,7 @@
 								<div style="display: none;">
 									<input type="hidden" name="site_url" value="<?php echo esc_url( get_site_url() ); ?>" />
 									<input type="hidden" name="ajax_url" value="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" />
-									<input type="hidden" name="redirect" value="<?php echo esc_url( admin_url( 'admin.php?page=bswp-settings&action=auth-site' ) ); ?>" />
+									<input type="hidden" name="redirect" value="<?php echo esc_url_raw( admin_url( 'admin.php?page=bswp-settings&action=auth-site' ) ); ?>" />
 									<?php wp_nonce_field( 'birdsend-auth-site', 'nonce' ); ?>
 								</div>
 								<div class="bswp-my-4 center-align">

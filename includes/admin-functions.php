@@ -46,6 +46,9 @@ function bswp_admin_auth_site() {
 				exit;
 			}
 
+			$client_id     = absint( $client['client_id'] );
+			$client_secret = esc_attr( $client['client_secret'] );
+
 			$auth_code = sanitize_text_field( $_GET['code'] );
 			bswp_request_token( $client_id, $client_secret, $auth_code );
 			delete_user_meta( get_current_user_id(), 'bswp_client' );

@@ -66,7 +66,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 }
 
 // load widgets.
-require_once BSWP_LIBS . 'classes/class-bwsp-widgetform.php';
+require_once BSWP_LIBS . 'classes/class-bswp-widgetform.php';
 
 // load admin files.
 if ( is_admin() ) {
