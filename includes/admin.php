@@ -1,6 +1,7 @@
 <?php
 /**
  * Hook BirdSend menu into WP admin sidebar
+ *
  * @return void
  */
 function bswp_add_admin() {
@@ -10,22 +11,25 @@ add_action( 'admin_menu', 'bswp_add_admin' );
 
 /**
  * Hook JS and CSS files into WP admin on some specific pages only
- * @param  string $hook Current page hook name
+ *
+ * @param  string $hook Current page hook name.
  * @return void
  */
 function bswp_admin_scripts( $hook ) {
-	wp_enqueue_style( 'bswp-admin', BSWP_CSS . 'admin.css' );
-	
+	wp_enqueue_style( 'bswp-admin', BSWP_CSS . 'admin.css', null, '1.0.0' );
+
 	$panels = array(
 		'toplevel_page_bswp-settings',
 	);
-	
-	if ( !in_array($hook, $panels) ) return;
 
-	wp_register_script( 'materialize', BSWP_JS . 'materialize.min.js', array( 'jquery' ), '1.0.0', true);
-	wp_enqueue_script( 'bwsp-admin', BSWP_JS . 'admin.js', array( 'materialize' ), '1.0.0', true);
+	if ( ! in_array( $hook, $panels ) ) {
+		return;
+	}
+
+	wp_register_script( 'materialize', BSWP_JS . 'materialize.min.js', array( 'jquery' ), '1.0.0', true );
+	wp_enqueue_script( 'bwsp-admin', BSWP_JS . 'admin.js', array( 'materialize' ), '1.0.0', true );
 	wp_enqueue_style( 'material-icons', '//fonts.googleapis.com/icon?family=Material+Icons' );
-	wp_enqueue_style( 'materialize', BSWP_CSS . 'materialize.min.css' );
+	wp_enqueue_style( 'materialize', BSWP_CSS . 'materialize.min.css', null, '1.0.0' );
 }
 add_action( 'admin_enqueue_scripts', 'bswp_admin_scripts' );
 
@@ -34,17 +38,17 @@ add_action( 'admin_enqueue_scripts', 'bswp_admin_scripts' );
  */
 function bswp_settings() {
 	$action = '';
-	
-	if ( isset( $_GET[ 'action' ] ) ) {
-		$action = $_GET[ 'action' ];
+
+	if ( isset( $_GET['action'] ) ) {
+		$action = sanitize_key( $_GET['action'] );
 	}
 
 	switch ( $action ) {
 		case 'developer':
-			include_once( 'admin-developer.php' );
+			include_once 'admin-developer.php';
 			break;
 		default:
-			include_once( 'admin-settings.php' );
+			include_once 'admin-settings.php';
 			break;
 	}
 }
