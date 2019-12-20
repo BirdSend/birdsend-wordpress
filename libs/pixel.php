@@ -10,23 +10,24 @@ function bswp_inject_pixel() {
 		return;
 	}
 
+	$pobj = get_queried_object();
 	$post_type = get_post_type();
 
 	$categories = array_map(
 		function ( $category ) {
-				return $category->slug;
+			return $category->slug;
 		},
-		get_the_category()
+		get_the_category( $pobj->ID )
 	);
 
 	$tags     = '';
-	$all_tags = get_the_tags();
+	$all_tags = get_the_tags( $pobj->ID );
 	if ( is_array( $all_tags ) ) {
 		$tags = array_map(
 			function ( $tag ) {
-					return $tag->slug;
+				return $tag->slug;
 			},
-			get_the_tags()
+			$all_tags
 		);
 		$tags = implode( "','", $tags );
 	}
