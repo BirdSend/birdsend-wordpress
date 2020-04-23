@@ -1,11 +1,14 @@
 <?php
-/*
+/**
  * Plugin Name: BirdSend Email Marketing
  * Version: 1.0.5
  * Plugin URI: https://birdsend.co/
  * Description: Official BirdSend plugin to integrate with WordPress.
  * Author: BirdSend
  * License: GPLv2 or later
+ * Text Domain: birdsend
+ *
+ * @package BirdSend
  */
 
 /*
@@ -26,13 +29,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 Copyright 2018 XooGuu, LLC.
 */
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 define( 'BSWP_VERSION', '1.0.5' );
 define( 'BSWP_DB_VERSION', '0.1' );
 
-define( 'BSWP_URL', plugin_dir_url(__FILE__) );
-define( 'BSWP_PATH', plugin_dir_path(__FILE__) );
+define( 'BSWP_URL', plugin_dir_url( __FILE__ ) );
+define( 'BSWP_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BSWP_BASENAME', plugin_basename( __FILE__ ) );
 define( 'BSWP_LIBS', BSWP_PATH . 'libs/' );
 
@@ -46,29 +51,27 @@ define( 'BSWP_APP_URL', 'https://app.birdsend.co/' );
 define( 'BSWP_API_URL', 'https://api.birdsend.co/' );
 
 // load composer packages.
-require_once( BSWP_PATH . 'vendor/autoload.php');
+require_once BSWP_PATH . 'vendor/autoload.php';
 
-// load libraries
-require_once( BSWP_LIBS . 'helpers.php' );
-require_once( BSWP_LIBS . 'functions.php' );
-require_once( BSWP_LIBS . 'pixel.php' );
-require_once( BSWP_LIBS . 'shortcodes.php' );
-require_once( BSWP_LIBS . 'webhook.php' );
-require_once( BSWP_LIBS . 'woocommerce.php' );
-require_once( BSWP_LIBS . 'widgets.php' );
+// load libraries.
+require_once BSWP_LIBS . 'helpers.php';
+require_once BSWP_LIBS . 'functions.php';
+require_once BSWP_LIBS . 'pixel.php';
+require_once BSWP_LIBS . 'shortcodes.php';
+
+// load WooCommerce integration.
+if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+	require_once BSWP_LIBS . 'webhook.php';
+	require_once BSWP_LIBS . 'woocommerce.php';
+}
+
+// load widgets.
+require_once BSWP_LIBS . 'classes/class-bswp-widgetform.php';
 
 // load admin files.
 if ( is_admin() ) {
-	require_once( BSWP_INC . 'admin.php' );
-	require_once( BSWP_INC . 'admin-functions.php' );
-    require_once( BSWP_INC . 'admin.php' );
-    require_once( BSWP_INC . 'admin-functions.php' );
+	require_once BSWP_INC . 'admin.php';
+	require_once BSWP_INC . 'admin-functions.php';
+	require_once BSWP_INC . 'admin.php';
+	require_once BSWP_INC . 'admin-functions.php';
 }
-
-// update checker
-require_once( BSWP_LIBS . 'plugin-update-checker/plugin-update-checker.php' );
-$bswpUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-	'https://github.com/BirdSend/birdsend-wordpress/',
-	__FILE__,
-	'birdsend-email-marketing'
-);

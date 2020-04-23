@@ -3,12 +3,12 @@
 /**
  * Show form shortcode
  *
- * @param array $attr
+ * @param array $attr Shortcode attribute.
  *
  * @return string
  */
 function bswp_show_form_shortcode( $attr ) {
-	$default = [ 'form' => '' ];
+	$default = array( 'form' => '' );
 
 	if ( is_array( $attr ) ) {
 		$attr = array_merge( $default, $attr );
@@ -16,7 +16,7 @@ function bswp_show_form_shortcode( $attr ) {
 		$attr = $default;
 	}
 
-	return '<div data-birdsend-form="' . $attr[ 'form' ] . '"></div>';
+	return '<div data-birdsend-form="' . $attr['form'] . '"></div>';
 }
 
 add_shortcode( 'birdsend', 'bswp_show_form_shortcode' );
