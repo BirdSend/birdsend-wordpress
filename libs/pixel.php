@@ -13,15 +13,16 @@ function bswp_inject_pixel() {
 	$pobj = get_queried_object();
 	$post_type = get_post_type();
 
+	$all_categories = $pobj ? get_the_category( $pobj->ID ) : [];
 	$categories = array_map(
 		function ( $category ) {
 			return $category->slug;
 		},
-		get_the_category( $pobj->ID )
+		$all_categories
 	);
 
 	$tags     = '';
-	$all_tags = get_the_tags( $pobj->ID );
+	$all_tags = $pobj ? get_the_tags( $pobj->ID ) : [];
 	if ( is_array( $all_tags ) ) {
 		$tags = array_map(
 			function ( $tag ) {
