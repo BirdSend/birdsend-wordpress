@@ -18,7 +18,7 @@ function bswo_post_order( $order_id, $action = 'purchase_product', $items= array
 				  getenv( 'HTTP_FORWARDED' ) ?:
 				  getenv( 'REMOTE_ADDR' );
 	$site = get_site_url();
-	$http = new GuzzleHttp\Client( [ 'verify' => false ] );
+	$http = new GuzzleHttp\Client( [ 'verify' => false, 'http_errors' => true ] );
 	$categories = array();
 	foreach ( $items as $item ) {
 		$category = get_the_terms( $item['product_id'], 'product_cat' );
@@ -49,11 +49,11 @@ function bswo_post_order( $order_id, $action = 'purchase_product', $items= array
 		$url = bswp_app_url( 'listener' );
 		$response = $http->request( 'POST', $url, $post );
 
-	} catch ( GuzzleHttp\Exception\ClientException $e ) {
+	} catch ( \Exception $e ) {
 		if ( WP_DEBUG ) {
-			echo $e->getMessage();
+			$order->add_order_note("BirdSend update failed: " . $e->getMessage());	
 		}
-	}
+	} 
 	return false;
 }
 
