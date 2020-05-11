@@ -64,7 +64,7 @@ function bswp_add_conversion( $order_id ) {
 	$order = wc_get_order( $order_id );
 	$items = $order->get_items();
 	$email = $order->get_billing_email();
-
+	
 	if ( $email ) {
 		$contact = bswp_api_request("GET", "contacts", ['search_by' => 'email', 'keyword' => $email]);
 		//if contact exist
@@ -126,9 +126,10 @@ function bswp_remove_conversion( $order_id ) {
  */
 function bswp_create_conversion_product( $item ) {
 	$product = [
-		"name" => $item->get_name(),
+		"name"	=> $item->get_name(),
 		"source" => "woocommerce",
-		"sku" =>  get_home_url()."-".$item->get_sku()
+		"sku" 	=>  get_home_url()."-".$item->get_sku(),
+		"value" => $item->get_price(),
 	];
 	$response = bswp_api_request("POST", "conversion_products", $product);
 	return $response;
