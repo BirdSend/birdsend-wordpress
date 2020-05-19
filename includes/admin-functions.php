@@ -36,7 +36,6 @@ function bswp_admin_auth_site() {
 				exit;
 			}
 			bswp_request_token( $client[ 'client_id' ], $client[ 'client_secret' ], $_GET[ 'code' ] );
-			delete_user_meta( get_current_user_id(), 'bswp_client' );
 			wp_redirect( 'admin.php?page=bswp-settings&msg=connected' );
 			exit;
 		}
@@ -111,6 +110,7 @@ add_action( 'admin_notices', 'bswp_admin_notice' );
 function bswp_do_disconnect() {
 	delete_option( 'bswp_token' );
 	delete_option( 'bswp_pixel_code' );
+	delete_user_meta( get_current_user_id(), 'bswp_client' );
 }
 
 /**

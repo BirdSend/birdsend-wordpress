@@ -28,7 +28,7 @@ function bswp_api_url( $path = '' ) {
  * @param string $code  Auth code
  * @param string $scope Scope
  *
- * @return void
+ * @return array
  */
 function bswp_request_token( $client_id, $client_secret, $code, $scope = '' ) {
 	$http = new GuzzleHttp\Client;
@@ -41,9 +41,10 @@ function bswp_request_token( $client_id, $client_secret, $code, $scope = '' ) {
 				'redirect_uri' => admin_url( 'admin.php?page=bswp-settings&action=auth-site' ),
 				'code' => $code,
 			]
-		]);	
+		]);
 		$response = json_decode( (string) $response->getBody(), true );
 		update_option( 'bswp_token', sanitize_text_field( $response[ 'access_token' ] ) );
+		update_option( 'bswp_refresh_token', sanitize_text_field( $response[ 'refresh_token' ] ) );
 
 		return $response;
 	} catch ( \Exception $e ) {
@@ -54,6 +55,39 @@ function bswp_request_token( $client_id, $client_secret, $code, $scope = '' ) {
 		}
 		exit;
 	}
+}
+
+/**
+ * Refresh access token
+ *
+ * @return array
+ */
+function bswp_refresh_token() {
+	if (! $refresh_token = get_option( 'bswp_refresh_token' ) ) {
+		return false;
+	}
+
+	if (! $client = get_user_meta( get_current_user_id(), 'bswp_client', true) ) {
+		return false;
+	}
+
+	$http = new GuzzleHttp\Client;
+	try {
+		$response = $http->post( bswp_api_url( 'oauth/token' ), [
+			'form_params' => [
+				'grant_type' => 'refresh_token',
+				'refresh_token' => $refresh_token,
+				'client_id' => $client[ 'client_id' ],
+				'client_secret' => $client[ 'client_secret' ],
+				'scope' => 'write',
+			]
+		]);
+		$response = json_decode( (string) $response->getBody(), true );
+		update_option( 'bswp_token', sanitize_text_field( $response[ 'access_token' ] ) );
+		update_option( 'bswp_refresh_token', sanitize_text_field( $response[ 'refresh_token' ] ) );
+
+		return $response;
+	} catch ( \Exception $e ) {}
 }
 
 /**
@@ -146,6 +180,10 @@ function bswp_api_request( $method, $path, $data = array() ) {
 
 		return $response;
 	} catch ( \Exception $e ) {
+		if ($e->hasResponse() && $e->getResponse()->getStatusCode() == 401 && bswp_refresh_token()) {
+			return bswp_api_request( $method, $path, $data );
+		}
+
 		if ( WP_DEBUG ) {
 			echo $e->getMessage();
 		}
