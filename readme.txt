@@ -31,7 +31,8 @@ Upload the BirdSend Email Marketing plugin to your blog, Activate it, then conne
 
 == Changelog ==
 = 1.0.7 =
-* Added ability to auto-refresh expired access token.
+* Add ability to auto-refresh expired access token.
+* Fix conversion integration with WooCommerce.
 
 == Changelog ==
 = 1.0.6 =
