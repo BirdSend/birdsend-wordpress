@@ -8,6 +8,7 @@
 function bswo_post_order( $order_id, $action = 'purchase_product', $items= array()) {
 	$order = wc_get_order( $order_id );
 	$email = $order->get_billing_email();
+	$payload = [];
 	if ( empty( $items ) ) {
 		$items = $order->get_items();
 	}
@@ -30,8 +31,18 @@ function bswo_post_order( $order_id, $action = 'purchase_product', $items= array
 			}
 		}
 		$products[] = $item['product_id'];
+		$args = array(
+			'type' => 'simple',
+			'include' => array($item['product_id']),
+		);
+		$detail = wc_get_products($args);
+		$payload[] = [
+			'id'   => $detail[0]->get_id(),
+			'name' => $detail[0]->get_name(),
+			'price' => $detail[0]->get_price(),
+			'sku'	=> $detail[0]->get_sku(),
+		];
 	}
-
 	try {
 		if ( $email ) {
 			$options['email'] = $email;
@@ -40,6 +51,7 @@ function bswo_post_order( $order_id, $action = 'purchase_product', $items= array
 			$options['products'] = $products;
 			$options['action'] = $action;
 			$options['site_url'] = $site;
+			$options['payload'] = $payload;
 			$options['order_id'] = $order_id;
 		}
 		$post = [
@@ -48,7 +60,7 @@ function bswo_post_order( $order_id, $action = 'purchase_product', $items= array
 		
 		$url = bswp_app_url( 'listener' );
 		$response = $http->request( 'POST', $url, $post );
-
+		
 	} catch ( \Exception $e ) {
 		if ( WP_DEBUG ) {
 			$order->add_order_note("BirdSend update failed: " . $e->getMessage());	
@@ -156,7 +168,7 @@ function bswp_refund_conversion($conversion) {
  */
 function purchase_success( $order_id ) {
 	bswo_post_order( $order_id, 'purchase_product' );
-	bswp_add_conversion($order_id);
+	//bswp_add_conversion($order_id);
 }
 add_action( 'woocommerce_order_status_completed', 'purchase_success', 1 );
 
