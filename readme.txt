@@ -3,7 +3,7 @@ Contributors: birdsend
 Tags: birdsend, email, marketing, email marketing, web, optin, form, web form, optin form, mailing list, newsletter 
 Requires at least: 4.9
 Tested up to: 5.3
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,6 +30,9 @@ Upload the BirdSend Email Marketing plugin to your blog, Activate it, then conne
 1, 2, 3: You're done!
 
 == Changelog ==
+= 1.0.8 =
+* Improve WooCommerce integration logic
+
 = 1.0.7 =
 * Add ability to auto-refresh expired access token.
 * Fix conversion integration with WooCommerce.

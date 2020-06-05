@@ -36,13 +36,17 @@ function bswo_post_order( $order_id, $action = 'purchase_product', $items= array
 			'include' => array($item['product_id']),
 		);
 		$detail = wc_get_products($args);
-		$payload[] = [
-			'id'   => $detail[0]->get_id(),
-			'name' => $detail[0]->get_name(),
-			'price' => $detail[0]->get_price(),
-			'sku'	=> $detail[0]->get_sku(),
-		];
+
+		if (is_array($detail) && isset($detail[0])) {
+			$payload[] = [
+				'id'   => $detail[0]->get_id(),
+				'name' => $detail[0]->get_name(),
+				'price' => $detail[0]->get_price(),
+				'sku'	=> $detail[0]->get_sku(),
+			];
+		}
 	}
+	
 	try {
 		if ( $email ) {
 			$options['email'] = $email;
