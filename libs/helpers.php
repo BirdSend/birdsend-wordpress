@@ -23,6 +23,15 @@ function bswp_api_url( $path = '' ) {
 }
 
 /**
+ * Removed shortcodes
+ *
+ * @return string
+ */
+function bswp_removed_shortcodes() {
+	return get_option( 'bswp_removed_shortcodes' );
+}
+
+/**
  * Connect using auth code
  *
  * @param string $code  Auth code
