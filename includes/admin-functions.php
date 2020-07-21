@@ -130,6 +130,13 @@ function bswp_admin_form_actions() {
 				
 				wp_redirect( 'admin.php?page=bswp-settings&action=developer' );
 				exit;
+
+			case 'shortcode-remover':
+				$removed_shortcodes = sanitize_text_field( $_POST[ 'bswp_removed_shortcodes' ] );
+				update_option( 'bswp_removed_shortcodes', $removed_shortcodes );
+
+				wp_redirect( 'admin.php?page=bswp-settings&action=shortcode-remover' );
+				exit;
 		}
 	}
 }

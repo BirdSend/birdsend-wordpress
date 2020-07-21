@@ -43,6 +43,9 @@ function bswp_settings() {
 		case 'developer':
 			include_once( 'admin-developer.php' );
 			break;
+		case 'shortcode-remover':
+			include_once( 'admin-shortcode-remover.php' );
+			break;
 		default:
 			include_once( 'admin-settings.php' );
 			break;
