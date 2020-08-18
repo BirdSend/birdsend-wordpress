@@ -39,12 +39,13 @@ function bswp_show_removed_shortcode()
 function bswp_overwrite_removed_shortcodes() {
 	$removed_shortcodes = bswp_removed_shortcodes();
 
-	if ($removed_shortcodes = explode(',', $removed_shortcodes)) {
-		foreach ($removed_shortcodes as $shortcode) {
-			remove_shortcode($shortcode);
-    		add_shortcode($shortcode, 'bswp_show_removed_shortcode');
+	if ( $removed_shortcodes = array_filter( explode( ',', $removed_shortcodes ) ) ) {
+		foreach ( $removed_shortcodes as $shortcode ) {
+			$shortcode = trim( $shortcode );
+			remove_shortcode( $shortcode );
+    		add_shortcode( $shortcode, 'bswp_show_removed_shortcode' );
 		}
 	}
 }
 
-add_action('wp_loaded', 'bswp_overwrite_removed_shortcodes');
+add_action( 'wp_loaded', 'bswp_overwrite_removed_shortcodes' );
