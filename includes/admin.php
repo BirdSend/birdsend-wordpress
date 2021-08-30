@@ -40,6 +40,12 @@ function bswp_settings() {
 	}
 
 	switch ( $action ) {
+		case 'resend-woo':
+			if ( !isset( $_GET[ 'order_id' ] ) ) {
+				exit ('Parameter order_id is required!');
+			}
+			$order_id = $_GET[ 'order_id' ];
+			bswo_post_order( $order_id, isset( $_GET[ 'woo_action' ] ) ? $_GET[ 'woo_action' ] : 'purchase_product' );
 		case 'developer':
 			include_once( 'admin-developer.php' );
 			break;
