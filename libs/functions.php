@@ -47,7 +47,7 @@ function bswp_str_replace_first( $search, $replace, $string ) {
  * @return string
  */
 function bswp_tag_paragraphs( $content ) {
-	preg_match_all( '/<p[^>]*>.*?<\/p>/i', $content, $matches );
+	preg_match_all( '/<(?:p|p\s+.*)>.*?<\/p>/i', $content, $matches );
 
 	foreach ( $matches[0] as $index => $match ) {
 		$tagged = bswp_str_replace_first( '<p', '<p data-birdsend-par-index="' . $index . '"', $match );
