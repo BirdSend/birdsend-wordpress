@@ -12,12 +12,6 @@ function bswo_post_order( $order_id, $action = 'purchase_product', $items= array
 	if ( empty( $items ) ) {
 		$items = $order->get_items();
 	}
-	$ipaddress = getenv( 'HTTP_CLIENT_IP' ) ?:
-				  getenv( 'HTTP_X_FORWARDED_FOR' ) ?:
-				  getenv( 'HTTP_X_FORWARDED' ) ?:
-				  getenv( 'HTTP_FORWARDED_FOR' ) ?:
-				  getenv( 'HTTP_FORWARDED' ) ?:
-				  getenv( 'REMOTE_ADDR' );
 	$site = get_site_url();
 	$http = new GuzzleHttp\Client( [ 'verify' => false, 'http_errors' => true ] );
 	$categories = array();
@@ -50,7 +44,9 @@ function bswo_post_order( $order_id, $action = 'purchase_product', $items= array
 	try {
 		if ( $email ) {
 			$options['email'] = $email;
-			$options['ipaddress'] = $ipaddress;
+			$options['first_name'] = $order->get_billing_first_name();
+			$options['last_name'] = $order->get_billing_last_name();
+			$options['ipaddress'] = $order->get_customer_ip_address();
 			$options['categories'] = array_values( array_unique( $categories ) );
 			$options['products'] = $products;
 			$options['action'] = $action;
@@ -64,10 +60,13 @@ function bswo_post_order( $order_id, $action = 'purchase_product', $items= array
 		
 		$url = bswp_app_url( 'listener' );
 		$response = $http->request( 'POST', $url, $post );
-		
+
+		if (! empty( $_GET['debug'] ) ) {
+			var_dump($post, (string) $response->getBody());
+		}
 	} catch ( \Exception $e ) {
-		if ( WP_DEBUG ) {
-			$order->add_order_note("BirdSend update failed: " . $e->getMessage());	
+		if ( WP_DEBUG || ! empty( $_GET('debug') ) ) {
+			$order->add_order_note("BirdSend update failed: " . $e->getMessage());
 		}
 	} 
 	return false;
