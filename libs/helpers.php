@@ -293,3 +293,24 @@ function bwsp_get_parent($category_id) {
 	} 
 	return $parents;
 }
+
+/**
+ * Get forms via api
+ *
+ * @param bool $cached
+ *
+ * @return array
+ */
+function bswp_get_forms($cached = true) {
+	if ($cached && $forms = wp_cache_get( 'forms', 'bswp' )) {
+		return $forms;
+	}
+
+	if ( $forms = bswp_api_request( 'GET', 'forms', $params ) ) {
+		$response = $forms[ 'data' ];
+		wp_cache_add( 'forms', $response, 'bswp', 600 );
+		return $response;
+	}
+
+	return [];
+}

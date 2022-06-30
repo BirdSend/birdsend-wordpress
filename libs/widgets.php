@@ -54,24 +54,16 @@ class BSWP_WidgetForm extends WP_Widget
 			<label for="<?php echo esc_attr( $this->get_field_id( 'form_id' ) ); ?>">Form:</label>
 			<select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'form_id' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'form_id' ) ); ?>">
 				<option value="">None</option>
+				<?php foreach (bswp_get_forms() as $form) { ?>
+				<?php if ($form['active']) { ?>
+				<option value="<?php echo $form['form_id']; ?>"<?php echo ( $form['form_id'] == $form_id ? ' selected' : '' ) ?>><?php echo $form['name']; ?></option>
+				<?php } ?>
+				<?php } ?>
 			</select>
 		</p>
 		<p>
 			<a href="<?php echo bswp_app_url( 'forms/new' ); ?>" target="_blank">Create New Form</a>
 		</p>
-		<script>
-		(function () {
-			var data = { 'action': 'bswp_ajax_get_forms' },
-				id = '<?php echo esc_attr( $this->get_field_id( 'form_id' ) ); ?>',
-				value = '<?php echo esc_attr( $form_id ); ?>';
-			jQuery.post(ajaxurl, data, function(response) {
-				JSON.parse(response).forEach(function (form) {
-					var option = '<option value="' + form.form_id + '"' + ( form.form_id == value ? ' selected' : '' ) + '>' + form.name + '</option>';
-					jQuery('#' + id).append(option);
-				});
-			});
-		})();
-		</script>
 		<?php
 	}
 
