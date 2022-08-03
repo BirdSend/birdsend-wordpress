@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: BirdSend Email Marketing
- * Version: 1.0.12
+ * Version: 1.0.13
  * Plugin URI: https://birdsend.co/
  * Description: Official BirdSend plugin to integrate with WordPress.
  * Author: BirdSend
