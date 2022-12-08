@@ -306,6 +306,8 @@ function bswp_get_forms($cached = true) {
 		return $forms;
 	}
 
+	$params = [ 'keyword' => 'active:1;rich:1', 'order_by' => 'name', 'sort' => 'asc', 'per_page' => 100 ];
+
 	if ( $forms = bswp_api_request( 'GET', 'forms', $params ) ) {
 		$response = $forms[ 'data' ];
 		wp_cache_add( 'forms', $response, 'bswp', 600 );
