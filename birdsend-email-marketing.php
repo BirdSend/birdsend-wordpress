@@ -28,7 +28,7 @@ Copyright 2018 XooGuu, LLC.
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-define( 'BSWP_VERSION', '1.0.13' );
+define( 'BSWP_VERSION', '1.0.14' );
 define( 'BSWP_DB_VERSION', '0.1' );
 
 define( 'BSWP_URL', plugin_dir_url(__FILE__) );
