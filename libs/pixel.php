@@ -48,4 +48,4 @@ function bswp_inject_pixel() {
 	<?php
 	echo '<!-- BirdSend Pixel End -->' . "\n";
 }
-add_action('wp_head', 'bswp_inject_pixel');
+// add_action('wp_head', 'bswp_inject_pixel');

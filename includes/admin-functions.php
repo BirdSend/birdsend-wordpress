@@ -77,7 +77,7 @@ function bswp_admin_notice() {
 
 		if ( isset( $_GET[ 'msg' ] ) && $_GET[ 'msg' ] == 'invalid_nonce' ) {
 			echo '<div class="notice notice-error">';
-			echo '<p>Invalid request!.</p>';
+			echo '<p>Invalid request!</p>';
 			echo '</div>';
 		}
 
@@ -96,6 +96,24 @@ function bswp_admin_notice() {
 		if ( isset( $_GET[ 'msg' ] ) && $_GET[ 'msg' ] == 'disconnected' ) {
 			echo '<div class="notice notice-success">';
 			echo '<p>Success! Your BirdSend account has been disconnected.</p>';
+			echo '</div>';
+		}
+
+		if ( isset( $_GET[ 'msg' ] ) && $_GET[ 'msg' ] == 'sync-all-scheduled' ) {
+			echo '<div class="notice notice-success">';
+			echo '<p>Your forms will be synced shortly.</p>';
+			echo '</div>';
+		}
+
+		if ( isset( $_GET[ 'msg' ] ) && $_GET[ 'msg' ] == 'sync-form-success' ) {
+			echo '<div class="notice notice-success">';
+			echo '<p>Sync form successful.</p>';
+			echo '</div>';
+		}
+
+		if ( isset( $_GET[ 'msg' ] ) && $_GET[ 'msg' ] == 'sync-form-error' ) {
+			echo '<div class="notice notice-error">';
+			echo '<p>Sync form error!</p>';
 			echo '</div>';
 		}
 	}
@@ -137,6 +155,18 @@ function bswp_admin_form_actions() {
 
 				wp_redirect( 'admin.php?page=bswp-settings&action=shortcode-remover' );
 				exit;
+
+			case 'sync-all':
+				bswp_forms_sync_all();
+
+				wp_redirect( 'admin.php?page=bswp-settings&action=forms&msg=sync-all-scheduled' );
+				exit;
+
+			case 'sync-form':
+				$sync = bswp_forms_sync( $_POST['form_id'] );
+
+				wp_redirect( 'admin.php?page=bswp-settings&action=forms&msg=sync-form-'.$sync );
+				exit;
 		}
 	}
 }
@@ -152,11 +182,89 @@ add_action( 'wp_ajax_bswp_ajax_get_forms', 'bswp_ajax_get_forms' );
  * @return array
  */
 function bswp_ajax_get_forms() {
-	$params = [ 'keyword' => 'active:1;rich:1', 'order_by' => 'name', 'sort' => 'asc', 'per_page' => 100 ];
-	$response = [];
-	if ( $forms = bswp_api_request( 'GET', 'forms', $params ) ) {
-		$response = $forms[ 'data' ];
-	}
-	echo json_encode( $response );
+	echo json_encode( bswp_get_forms() );
 	wp_die();
+}
+
+// ------------------------------------------------------------------------------------------------------------------
+
+/**
+ * Paginate forms data
+ *
+ * @param array $params
+ *
+ * @return array
+ */
+function bswp_paginate_forms( $params = array() ) {
+	global $wpdb;
+
+	$page = isset( $params['page'] ) ? $params['page'] : 1;
+	$limit = isset( $params['per_page'] ) ? $params['per_page'] : 15;
+	$offset = ($page - 1) * $limit;
+
+	$path = admin_url( 'admin.php?page=bswp-settings&action=forms' );
+	$conditions = '';
+
+	if ( $search = isset( $params['search'] ) ? $params['search'] : '' ) {
+		$path .= '&search=' . urlencode($search);
+		$conditions = 'WHERE `name` LIKE "%' . sanitize_text_field($search) . '%"';
+	}
+
+	$total = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}bswp_forms {$conditions}" );
+	$last_page = ceil( $total / $limit );
+
+	$data = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}bswp_forms {$conditions} ORDER BY name LIMIT %d,%d", $offset, $limit ) );
+
+	$links = array(
+		'first' => $path . '&' . http_build_query( array( 'p' => 1, 'pp' => $limit ) ),
+        'last' => $path . '&' . http_build_query( array( 'p' => $last_page, 'pp' => $limit ) ),
+        'prev' => $page > 1 ? $path . '&' . http_build_query( array( 'p' => $page - 1, 'pp' => $limit ) ) : null,
+        'next' => $page < $last_page ? $path . '&' . http_build_query( array( 'p' => $page + 1, 'pp' => $limit ) ) : null
+	);
+
+	$meta = array(
+		'current_page' => $page,
+        'from' => $offset + 1,
+        'last_page' => $last_page,
+        'path' => $path,
+        'per_page' => $limit,
+        'to' => $offset + $limit,
+        'total' => $total,
+	);
+
+	return compact( 'data', 'links', 'meta' );
+}
+
+/**
+ * Generate pagination html
+ *
+ * @param array $pagination
+ * @param int $range
+ *
+ * @return string
+ */
+function bswp_pagination_html( $pagination, $range = 5 ) {
+	$meta = $pagination['meta'];
+	$links = $pagination['links'];
+	
+	$first_page = max( 1, $meta['current_page'] - $range );
+	$last_page = min( $meta['last_page'], $meta['current_page'] + $range );
+
+	$pages = array();
+	for ( $i = $first_page; $i <= $last_page; $i++ ) {
+		$pages[ $i ] = $meta['path'] . '&' . http_build_query( array( 'p' => $i, 'pp' => $meta['per_page'] ) );
+	}
+
+	$pages_html = '';
+	foreach ($pages as $page => $url) {
+		$pages_html .= '<li class="' . ( $meta['current_page'] == $page ? 'active yellow darken-1' : '' ) . '"><a href="' . $url . '">' . $page . '</a></li>';
+	}
+
+	return '<ul class="pagination">'.
+			'<li><a href="' . $links['first'] . '">First</a></li>'.
+			'<li class="' . ( ! $links['prev'] ? 'disabled' : '' ) . '"><a href="' . ( $links['prev'] ?: '#!' ) . '"><i class="material-icons">chevron_left</i></a></li>'.
+			$pages_html.
+			'<li class="' . ( ! $links['next'] ? 'disabled' : '' ) . '"><a href="' . ( $links['next'] ?: '#!' ) . '"><i class="material-icons">chevron_right</i></a></li>'.
+			'<li><a href="' . $links['last'] . '">Last</a></li>'.
+		'</ul>';
 }

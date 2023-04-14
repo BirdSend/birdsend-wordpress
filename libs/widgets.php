@@ -27,15 +27,16 @@ class BSWP_WidgetForm extends WP_Widget
 	public function widget( $args, $instance )
 	{
 		echo $args['before_widget'];
- 
 		echo '<div class="textwidget bswp-form-widget">';
 
-		if (! empty( $instance[ 'form_id' ] ) ) {
-			echo '<div data-birdsend-form-widget="' . esc_attr( $instance[ 'form_id' ] ) . '"></div>';
+		if (! empty( $instance[ 'form_id' ] ) && $html = bswp_get_form_html( esc_attr( $instance[ 'form_id' ] ), true ) ) {
+			foreach ( $html['css'] as $index => $src ) {
+				bswp_enqueue_form_style( $src, $html['ver'] );
+			}
+			echo $html['html'];
 		}
  
 		echo '</div>';
- 
 		echo $args['after_widget'];
 	}
 
@@ -54,10 +55,8 @@ class BSWP_WidgetForm extends WP_Widget
 			<label for="<?php echo esc_attr( $this->get_field_id( 'form_id' ) ); ?>">Form:</label>
 			<select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'form_id' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'form_id' ) ); ?>">
 				<option value="">None</option>
-				<?php foreach (bswp_get_forms() as $form) { ?>
-				<?php if ($form['active']) { ?>
-				<option value="<?php echo $form['form_id']; ?>"<?php echo ( $form['form_id'] == $form_id ? ' selected' : '' ) ?>><?php echo $form['name']; ?></option>
-				<?php } ?>
+				<?php foreach ( bswp_get_forms( array( 'id', 'name' ) ) as $form ) { ?>
+				<option value="<?php echo $form->id; ?>"<?php echo ( $form->id == $form_id ? ' selected' : '' ) ?>><?php echo $form->name; ?></option>
 				<?php } ?>
 			</select>
 		</p>

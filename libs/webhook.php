@@ -124,3 +124,64 @@ function bswp_webhook_get_order_by_id() {
 	echo json_encode( $order->get_data());
 }
 add_action( 'bswp_webhook_get_order_by_id', 'bswp_webhook_get_order_by_id');
+
+/**
+ * Webhook handler: form_updated
+ *
+ * @return void
+ */
+function bswp_webhook_form_updated() {
+	global $wpdb;
+
+	$data = json_decode( trim( file_get_contents( 'php://input' ) ), true );
+	bswp_activity_log('form', 'updated', $data, $data['form_id'], 'forms');
+
+	$data = array(
+		'id' => $data['form_id'],
+		'name' => $data['name'],
+		'triggers' => json_encode( $data['triggers'] ),
+		'updated_at' => $data['updated_at'],
+		'version' => $data['version'],
+		'last_sync_at' => current_time( 'Y-m-d H:i:s' ),
+		'stats_displays_original' => $data['stats']['displays'],
+		'stats_submissions_original' => $data['stats']['submissions']
+	);
+
+	if ( ( $form = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}bswp_forms WHERE id = {$data['form_id']}" ) )
+		&& $form->version != $data['version']
+	) {
+		$data['raw_html'] = null;
+		$data['wg_html'] = null;
+	}
+
+	$wpdb->replace( "{$wpdb->prefix}bswp_forms", $data );
+
+	header( 'Content-Type: application/json' );
+	echo json_encode(['success' => true, 'id' => $data['form_id']]);
+}
+add_action( 'bswp_webhook_form_updated', 'bswp_webhook_form_updated');
+
+/**
+ * Webhook handler: form_deleted
+ *
+ * @return void
+ */
+function bswp_webhook_form_deleted() {
+	global $wpdb;
+
+	$data = json_decode( trim( file_get_contents( 'php://input' ) ), true );
+	bswp_activity_log('form', 'deleted', $data, $data['form_id'], 'forms');
+
+	$success = false;
+
+	if ( ( $form = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}bswp_forms WHERE id = {$data['form_id']}" ) )
+		&& $form->version != $data['version']
+	) {
+		$wpdb->delete( "{$wpdb->prefix}bswp_forms", array( 'id' => $data['form_id'] ) );
+		$success = true;
+	}
+
+	header( 'Content-Type: application/json' );
+	echo json_encode(['success' => $success, 'id' => $data['form_id']]);
+}
+add_action( 'bswp_webhook_form_deleted', 'bswp_webhook_form_deleted');

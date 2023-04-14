@@ -162,7 +162,7 @@ function bswp_format_pixel_code( $code ) {
  *
  * @return array
  */
-function bswp_api_request( $method, $path, $data = array() ) {
+function bswp_api_request( $method, $path, $data = array(), $throwException = false ) {
 	if (! $token = bswp_token() ) {
 		return;
 	}
@@ -195,6 +195,10 @@ function bswp_api_request( $method, $path, $data = array() ) {
 
 		if ( WP_DEBUG ) {
 			echo $e->getMessage();
+		}
+
+		if ($throwException) {
+			throw $e;
 		}
 	}
 	return false;
@@ -295,22 +299,28 @@ function bwsp_get_parent($category_id) {
 }
 
 /**
- * Get forms via api
+ * Activity log
  *
- * @param bool $cached
+ * @param string $name
+ * @param string $description
+ * @param array $properties
+ * @param int $subject_id
+ * @param string $subject_type
  *
- * @return array
+ * @return mixed
  */
-function bswp_get_forms($cached = true) {
-	if ($cached && $forms = wp_cache_get( 'forms', 'bswp' )) {
-		return $forms;
-	}
+function bswp_activity_log($name = 'default', $description = null, $properties = array(), $subject_id = null, $subject_type = null) {
+	global $wpdb;
 
-	if ( $forms = bswp_api_request( 'GET', 'forms', $params ) ) {
-		$response = $forms[ 'data' ];
-		wp_cache_add( 'forms', $response, 'bswp', 600 );
-		return $response;
-	}
-
-	return [];
+	return $wpdb->insert(
+		"{$wpdb->prefix}bswp_logs",
+		array(
+			'name' => $name,
+			'description' => $description,
+			'properties' => maybe_serialize($properties),
+			'subject_id' => $subject_id,
+			'subject_type' => $subject_type,
+			'created_at' => current_time( 'Y-m-d H:i:s' )
+		)
+	);
 }

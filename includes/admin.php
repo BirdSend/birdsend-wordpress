@@ -52,6 +52,9 @@ function bswp_settings() {
 		case 'shortcode-remover':
 			include_once( 'admin-shortcode-remover.php' );
 			break;
+		case 'forms':
+			include_once( 'admin-forms.php' );
+			break;
 		default:
 			include_once( 'admin-settings.php' );
 			break;

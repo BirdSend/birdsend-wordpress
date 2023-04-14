@@ -16,7 +16,12 @@ function bswp_show_form_shortcode( $attr ) {
 		$attr = $default;
 	}
 
-	return '<div data-birdsend-form="' . $attr[ 'form' ] . '"></div>';
+	if ( ( $id = $attr['form'] ) && $html = bswp_get_form_html( $id ) ) {
+		foreach ( $html['css'] as $index => $src ) {
+			bswp_enqueue_form_style( $src, $html['ver'] );
+		}
+		return $html['html'];
+	}
 }
 
 add_shortcode( 'birdsend', 'bswp_show_form_shortcode' );
