@@ -48,7 +48,7 @@ function bswp_get_forms( $columns = array( '*' ), $cached = true ) {
 		return $forms;
 	}
 
-	$forms = $wpdb->get_results( "SELECT id, name FROM {$wpdb->prefix}bswp_forms ORDER BY name LIMIT 100" );
+	$forms = $wpdb->get_results( "SELECT id, name FROM {$wpdb->prefix}bswp_forms WHERE active = 1 ORDER BY name LIMIT 100" );
 	wp_cache_add( $key, $forms, 'bswp', 600 );
 
 	return $forms;
@@ -97,11 +97,11 @@ function bswp_get_form_html( $id, $widget = false ) {
 
 	$column = $widget ? 'wg_html' : 'raw_html';
 
-	if (! $form = bswp_get_form( $id, array( 'id', 'name', 'version', $column ) ) ) {
+	if (! $form = \BSWP\Models\Form::find( $id ) ) {
 		return;
 	}
 
-	$html = maybe_unserialize( $widget->{$column} );
+	$html = $form->{$column};
 
 	if (! $html && $render = bswp_api_request( 'GET', 'wp/forms/' . $id . '/render' . ( $widget ? '/widget' : '' ) )) {
 		$render['ver'] = $form->version;
@@ -115,7 +115,11 @@ function bswp_get_form_html( $id, $widget = false ) {
 		);
 
 		wp_cache_flush();
-		return $render;
+		$html = $render;
+	}
+
+	if ( $form->type == 'in-content' && ! $widget ) {
+		$html['html'] = '<div class="bs-in-content-form" style="display: none !important;">' . $html['html'] . '</div>';
 	}
 
 	return $html;
@@ -150,11 +154,11 @@ function bswp_forms_sync_page($page = 1, $single = false, $ids = array() ) {
 		if ( ! empty( $response['data'] ) ) {
 			foreach ( $response['data'] as $row ) {
 				$query = "INSERT INTO {$wpdb->prefix}bswp_forms
-					( id, name, triggers, updated_at, raw_html, wg_html, version, last_sync_at, stats_displays_original, stats_submissions_original )
-					VALUES ( %d, %s, %s, %s, NULL, NULL, %s, UTC_TIMESTAMP, %d, %d )
-					ON DUPLICATE KEY UPDATE name=name, triggers=triggers, updated_at=updated_at, version=version, stats_displays_original=stats_displays_original, stats_submissions_original=stats_submissions_original";
+					( id, name, active, type, triggers, placements_count, updated_at, raw_html, wg_html, version, last_sync_at, stats_displays_original, stats_submissions_original )
+					VALUES ( %d, %s, %d, %s, %s, %d, %s, NULL, NULL, %s, UTC_TIMESTAMP, %d, %d ) as new
+					ON DUPLICATE KEY UPDATE name=new.name, active=new.active, type=new.type, triggers=new.triggers, placements_count=new.placements_count, updated_at=new.updated_at, version=new.version, stats_displays_original=new.stats_displays_original, stats_submissions_original=new.stats_submissions_original";
 
-				$wpdb->query( $wpdb->prepare( $query, $row['form_id'], $row['name'], json_encode( $row['triggers'] ), $row['updated_at'], $row['version'], $row['stats']['displays'], $row['stats']['submissions'] ) );
+				$wpdb->query( $wpdb->prepare( $query, $row['form_id'], $row['name'], $row['active'], $row['type'], json_encode( $row['triggers'] ), $row['placements_count'], $row['updated_at'], $row['version'], $row['stats']['displays'], $row['stats']['submissions'] ) );
 
 				$ids[] = $row['form_id'];
 			}
@@ -166,7 +170,7 @@ function bswp_forms_sync_page($page = 1, $single = false, $ids = array() ) {
 
 			if (! $single) {
 				// Delete forms not in the sync since they have probably been deleted.
-				$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}bswp_forms WHERE id NOT IN (".implode(',', $ids).")" ) );
+				$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}bswp_forms SET active = 0 WHERE id NOT IN (".implode(',', $ids).")" ) );
 			}
 		}
 	}
@@ -192,12 +196,15 @@ function bswp_forms_sync( $id ) {
 				"{$wpdb->prefix}bswp_forms",
 				array(
 					'name' => $response['name'],
+					'type' => $response['type'],
+					'active' => 1,
 					'triggers' => json_encode( $response['triggers'] ),
+					'placements_count' => $response['placements_count'],
 					'updated_at' => $response['updated_at'],
 					'raw_html' => null,
 					'wg_html' => null,
 					'version' => $response['version'],
-					'last_sync_at' => current_time( 'Y-m-d H:i:s' ),
+					'last_sync_at' => current_time( 'Y-m-d H:i:s', true ),
 					'stats_displays_original' => $response['stats']['displays'],
 					'stats_submissions_original' => $response['stats']['submissions']
 				),
@@ -207,10 +214,148 @@ function bswp_forms_sync( $id ) {
 		}
 	} catch (\Exception $e) {
 		if ( $e->getResponse()->getStatusCode() == 404 ) {
-			$wpdb->delete( "{$wpdb->prefix}bswp_forms", array( 'id' => $id ) );
+			$wpdb->update(
+				"{$wpdb->prefix}bswp_forms",
+				array( 'active' => 0 ),
+				array( 'id' => $id )
+			);
 			return 'success';
 		}
 	}
 
 	return 'error';
 }
+
+/**
+ * Get forms on current page
+ *
+ * @return array
+ */
+function bswp_get_forms_on_current_page( $placement = false, $ids = array() ) {
+	global $wpdb;
+
+	$page_profile = \BSWP\Models\Form::getCurrentPageProfile();
+	$key = "forms_" . md5( json_encode( array( 'u' => $page_profile['url'], 'p' => $placement, 'i' => $ids ) ) );
+
+	if ($cached && $forms = wp_cache_get( $key, 'bswp' )) {
+		return $forms;
+	}
+
+	$conditions = 'active = 1 AND type <> "in-content"';
+	if ( $placement ) {
+		$conditions = 'active = 1 AND type = "in-content" AND placements_count > 0';
+	}
+
+	if ( $ids ) {
+		$conditions = '(' . $conditions . ') OR id IN (' . implode( ',', $ids ) . ')';
+	}
+
+	$forms = $wpdb->get_results(
+		$wpdb->prepare( "SELECT * FROM {$wpdb->prefix}bswp_forms WHERE triggers IS NOT NULL AND {$conditions} ORDER BY updated_at DESC" )
+	);
+
+	$forms = array_map( function ($form) {
+		return new \BSWP\Models\Form( $form );
+	}, $forms );
+
+	$types = array();
+	$forms = array_filter( $forms, function ($form) use ($page_profile, &$types) {
+		if ( $eligible = in_array( $form->id, $ids ) 
+			|| ( $form->isEligible( $page_profile ) && ( $form->allowMultiple() || ! in_array( $form->type, $types ) ) )
+		) {
+			$types[] = $form->type;
+		}
+		return $eligible;
+	} );
+
+	wp_cache_add( $key, $forms, 'bswp', 600 );
+	return $forms;
+}
+
+/**
+ * Update display stats
+ *
+ * @param int $id
+ *
+ * @return void
+ */
+function bswp_form_update_display_stats( $id ) {
+	global $wpdb;
+
+	$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}bswp_forms SET stats_displays = stats_displays + 1 WHERE id = %d AND active = 1", $id ) );
+}
+
+/**
+ * Form display stats pixel
+ *
+ * @return void
+ */
+function bswp_form_display_stats_pixel() {
+	if ( ! empty( $_GET['bswp_form_display_stats_pixel'] ) && ! empty( $_GET['id'] ) ) {
+		$id = $_GET['id'];
+
+		if ( bswp_get_form( $id ) ) {
+			bswp_form_update_display_stats( $id );
+
+        	$transparent1x1Png = '89504e470d0a1a0a0000000d494844520000000100000001010300000025db56ca00000003504c544500000'.
+            	'0a77a3dda0000000174524e530040e6d8660000000a4944415408d76360000000020001e221bc330000000049454e44ae426082';
+
+			header( 'Content-Type: image/png' );
+			echo hex2bin( $transparent1x1Png );
+
+			exit;
+		}
+	}
+}
+add_action( 'template_redirect', 'bswp_form_display_stats_pixel', 2 );
+
+/**
+ * Update submission stats
+ *
+ * @param int $id
+ *
+ * @return void
+ */
+function bswp_form_update_submission_stats( $id ) {
+	global $wpdb;
+
+	$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}bswp_forms SET stats_submissions = stats_submissions + 1 WHERE id = %d AND active = 1", $id ) );
+}
+
+/**
+ * Form submission stats
+ *
+ * @return void
+ */
+function bswp_form_submission_stats() {
+	if ( ! empty( $_GET['bswp_form_submission_stats'] ) && ! empty( $_GET['id'] ) ) {
+		$id = $_GET['id'];
+
+		if ( bswp_get_form( $id ) ) {
+			bswp_form_update_submission_stats( $id );
+			echo 'OK';
+			exit;
+		}
+	}
+}
+add_action( 'template_redirect', 'bswp_form_submission_stats', 2 );
+
+/**
+ * Form GDPR message
+ *
+ * @return void
+ */
+function bswp_form_gdpr() {
+	if ( ! empty( $_GET['bswp_form_gdpr'] ) ) {
+		$gdpr = get_option( 'bswp_gdpr' );
+
+		if (! $gdpr && $gdpr = bswp_api_request( 'GET', 'wp/forms/gdpr' ) ) {
+			update_option( 'bswp_gdpr', $gdpr );
+		}
+
+		header( 'Content-Type: application/json' );
+		echo json_encode( $gdpr );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'bswp_form_gdpr', 2 );

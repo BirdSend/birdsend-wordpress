@@ -95,7 +95,6 @@ function bswp_webhook_get_product() {
 		echo 0;
 	}
 }
-
 add_action( 'bswp_webhook_get_product', 'bswp_webhook_get_product' );
 
 
@@ -120,7 +119,7 @@ add_action( 'bswp_webhook_get_categories', 'bswp_webhook_get_categories' );
 function bswp_webhook_get_order_by_id() {
 	$order_id = $_GET['id'];
 	header( 'Content-Type: application/json' );
-	$order =  wc_get_order( $order_id );
+	$order = wc_get_order( $order_id );
 	echo json_encode( $order->get_data());
 }
 add_action( 'bswp_webhook_get_order_by_id', 'bswp_webhook_get_order_by_id');
@@ -139,22 +138,32 @@ function bswp_webhook_form_updated() {
 	$data = array(
 		'id' => $data['form_id'],
 		'name' => $data['name'],
+		'active' => $data['active'],
+		'type' => $data['type'],
 		'triggers' => json_encode( $data['triggers'] ),
+		'placements_count' => $data['placements_count'],
 		'updated_at' => $data['updated_at'],
 		'version' => $data['version'],
-		'last_sync_at' => current_time( 'Y-m-d H:i:s' ),
+		'last_sync_at' => current_time( 'Y-m-d H:i:s', true ),
 		'stats_displays_original' => $data['stats']['displays'],
 		'stats_submissions_original' => $data['stats']['submissions']
 	);
 
-	if ( ( $form = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}bswp_forms WHERE id = {$data['form_id']}" ) )
+	if ( ( $form = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}bswp_forms WHERE id = {$data['id']}" ) )
 		&& $form->version != $data['version']
 	) {
 		$data['raw_html'] = null;
 		$data['wg_html'] = null;
 	}
 
-	$wpdb->replace( "{$wpdb->prefix}bswp_forms", $data );
+	if ( $form ) {
+		// We use update to reserve display_stats value
+		$wpdb->update( "{$wpdb->prefix}bswp_forms", $data, array( 'id' => $data['id'] ) );
+	} else {
+		$wpdb->replace( "{$wpdb->prefix}bswp_forms", $data );
+	}
+
+	wp_cache_flush();
 
 	header( 'Content-Type: application/json' );
 	echo json_encode(['success' => true, 'id' => $data['form_id']]);
@@ -174,14 +183,32 @@ function bswp_webhook_form_deleted() {
 
 	$success = false;
 
-	if ( ( $form = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}bswp_forms WHERE id = {$data['form_id']}" ) )
-		&& $form->version != $data['version']
-	) {
-		$wpdb->delete( "{$wpdb->prefix}bswp_forms", array( 'id' => $data['form_id'] ) );
+	if ( ( $form = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}bswp_forms WHERE id = {$data['form_id']}" ) ) ) {
+		$wpdb->update( "{$wpdb->prefix}bswp_forms", array( 'active' => 0 ), array( 'id' => $data['form_id'] ) );
 		$success = true;
+
+		wp_cache_flush();
 	}
 
 	header( 'Content-Type: application/json' );
 	echo json_encode(['success' => $success, 'id' => $data['form_id']]);
 }
 add_action( 'bswp_webhook_form_deleted', 'bswp_webhook_form_deleted');
+
+/**
+ * Webhook handler: gdpr_update
+ *
+ * @return void
+ */
+function bswp_webhook_gdpr_updated() {
+	global $wpdb;
+
+	$data = json_decode( trim( file_get_contents( 'php://input' ) ), true );
+	bswp_activity_log('gdpr', 'updated', $data);
+
+	update_option( 'bswp_gdpr', $data );
+
+	header( 'Content-Type: application/json' );
+	echo json_encode(['success' => $success]);
+}
+add_action( 'bswp_webhook_gdpr_updated', 'bswp_webhook_gdpr_updated');

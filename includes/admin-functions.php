@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Admin auth site
+ * Admin auth site (connect to BirdSend account)
  *
  * @return void
  */
@@ -36,6 +36,8 @@ function bswp_admin_auth_site() {
 				exit;
 			}
 			bswp_request_token( $client[ 'client_id' ], $client[ 'client_secret' ], $_GET[ 'code' ] );
+			// Sync all forms
+			bswp_forms_sync_all();
 			wp_redirect( 'admin.php?page=bswp-settings&msg=connected' );
 			exit;
 		}
@@ -203,11 +205,11 @@ function bswp_paginate_forms( $params = array() ) {
 	$offset = ($page - 1) * $limit;
 
 	$path = admin_url( 'admin.php?page=bswp-settings&action=forms' );
-	$conditions = '';
+	$conditions = 'WHERE active=1';
 
 	if ( $search = isset( $params['search'] ) ? $params['search'] : '' ) {
 		$path .= '&search=' . urlencode($search);
-		$conditions = 'WHERE `name` LIKE "%' . sanitize_text_field($search) . '%"';
+		$conditions = 'AND `name` LIKE "%' . sanitize_text_field($search) . '%"';
 	}
 
 	$total = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}bswp_forms {$conditions}" );

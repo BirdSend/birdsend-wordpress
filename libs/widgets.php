@@ -34,6 +34,7 @@ class BSWP_WidgetForm extends WP_Widget
 				bswp_enqueue_form_style( $src, $html['ver'] );
 			}
 			echo $html['html'];
+			echo '<script>"undefined" != typeof _bswpForms ? _bswpForms.wgs.push(' . json_encode( \BSWP\Helper::except( $html, array( 'css', 'html' ) ) ) . ') : null;</script>';
 		}
  
 		echo '</div>';

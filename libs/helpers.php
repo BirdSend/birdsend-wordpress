@@ -320,7 +320,7 @@ function bswp_activity_log($name = 'default', $description = null, $properties =
 			'properties' => maybe_serialize($properties),
 			'subject_id' => $subject_id,
 			'subject_type' => $subject_type,
-			'created_at' => current_time( 'Y-m-d H:i:s' )
+			'created_at' => current_time( 'Y-m-d H:i:s', true )
 		)
 	);
 }

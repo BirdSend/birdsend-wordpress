@@ -11,6 +11,7 @@ require_once( BSWP_LIBS . 'webhook.php' );
 require_once( BSWP_LIBS . 'woocommerce.php' );
 require_once( BSWP_LIBS . 'widgets.php' );
 require_once( BSWP_LIBS . 'forms.php' );
+require_once( BSWP_LIBS . 'form-loader.php' );
 
 // load admin files.
 if ( is_admin() ) {
@@ -42,7 +43,10 @@ function bswp_install() {
         $sql = "CREATE TABLE {$table} (
                 `id` int(11) unsigned NOT NULL,
                 `name` varchar(255) NOT NULL,
+                `active` tinyint(1) NOT NULL DEFAULT '0',
+                `type` varchar(50) NOT NULL,
                 `triggers` longtext DEFAULT NULL,
+                `placements_count` int(11) DEFAULT 0,
                 `updated_at` timestamp DEFAULT NULL,
                 `raw_html` longtext DEFAULT NULL,
                 `wg_html` longtext DEFAULT NULL,
@@ -52,7 +56,8 @@ function bswp_install() {
                 `stats_submissions_original` int(11) DEFAULT 0,
                 `stats_displays` int(11) DEFAULT 0,
                 `stats_submissions` int(11) DEFAULT 0,
-                UNIQUE KEY id (id)
+                UNIQUE KEY id (id),
+                KEY `{$wpdb->prefix}bswp_forms_active_type_placements_count_index` (`active`, `type`,`placements_count`) USING BTREE
             ) DEFAULT CHARSET=utf8;";
 
         $table = "{$wpdb->prefix}bswp_logs";

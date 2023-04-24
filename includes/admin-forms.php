@@ -44,12 +44,14 @@ $pagination = bswp_paginate_forms( $params );
 							<thead>
 								<tr>
 									<th>No</th>
+									<th>ID</th>
 									<th>Name</th>
-									<th>Updated At (UTC)</th>
-									<th>Last Sync At (UTC)</th>
+									<th>Type</th>
+									<th>Updated At</th>
+									<th>Last Sync At</th>
 									<th class="center-align">Display</th>
-									<th class="center-align">Submission</th>
-									<th class="center-align">Submission Rate</th>
+									<th class="center-align">Raw Submission</th>
+									<th class="center-align">Raw Submission Rate</th>
 									<th class="center-align">Actions</th>
 								</tr>
 							</thead>
@@ -57,12 +59,14 @@ $pagination = bswp_paginate_forms( $params );
 								<?php foreach ( $pagination['data'] as $index => $row ) { ?>
 								<tr>
 									<td><?php echo $pagination['meta']['from'] + $index; ?>.</td>
-									<td><?php echo $row->name; ?></td>
-									<td><?php echo $row->updated_at; ?></td>
-									<td><?php echo $row->last_sync_at; ?></td>
-									<td class="center-align"><?php echo $row->stats_displays_original + $row->stats_displays; ?></td>
-									<td class="center-align"><?php echo $row->stats_submissions_original + $row->stats_submissions; ?></td>
-									<td class="center-align"><?php echo round(($row->stats_submissions_original + $row->stats_submissions) / max(1, $row->stats_displays_original + $row->stats_displays) * 100, 2); ?>%</td>
+									<td><?php echo $row->id; ?></td>
+									<td><a href="<?php echo bswp_app_url('user/forms/' . $row->id); ?>" target="_blank"><?php echo $row->name; ?></a></td>
+									<td><?php echo $row->type; ?></td>
+									<td><?php echo get_date_from_gmt( $row->updated_at ); ?></td>
+									<td><?php echo get_date_from_gmt( $row->last_sync_at ); ?></td>
+									<td class="center-align"><?php echo $row->stats_displays; ?></td>
+									<td class="center-align"><?php echo $row->stats_submissions; ?></td>
+									<td class="center-align"><?php echo round($row->stats_submissions / max(1, $row->stats_displays) * 100, 2); ?>%</td>
 									<td class="center-align">
 										<form action="" method="POST">
 											<input type="hidden" name="submit" value="sync-form">
@@ -75,7 +79,7 @@ $pagination = bswp_paginate_forms( $params );
 								<?php } ?>
 							</tbody>
 						</table>
-						<p><span class="grey-text"><em>* Submission and submission rate are updated every hour.</em></span></p>
+						<p><span class="grey-text"><em>*Submission and submission rate are updated every hour.</em></span></p>
 						<div class="bswp-mt-8">
 							<?php echo bswp_pagination_html( $pagination ); ?>
 						</div>
@@ -86,7 +90,8 @@ $pagination = bswp_paginate_forms( $params );
 								<input type="hidden" name="submit" value="sync-all" />
 							</div>
 							<?php if ( $sync_all_status ) { ?>
-							<button type="submit" class="btn-small yellow darken-1 blue-grey-text text-darken-4 disabled" disabled><i class="material-icons left">refresh</i> <?php echo $sync_all_status == 1 ? 'Waiting for sync' : 'Syncing'; ?>...</button>
+							<button type="submit" class="btn-small yellow darken-1 blue-grey-text text-darken-4 disabled" disabled><i class="material-icons left">refresh</i> <?php echo $sync_all_status == 1 ? 'Waiting for sync' : 'Syncing'; ?>...</button><br>
+							<span class="helper-text grey-text"><em>It may take a few minutes for the sync to complete.</em></span>
 							<?php } else { ?>
 							<button type="submit" class="btn-small yellow darken-1 blue-grey-text text-darken-4"><i class="material-icons left">refresh</i> Sync all forms</button>
 							<?php } ?>
