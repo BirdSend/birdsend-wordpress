@@ -30,6 +30,9 @@ Upload the BirdSend Email Marketing plugin to your blog, Activate it, then conne
 1, 2, 3: You're done!
 
 == Changelog ==
+= 1.2.0 =
+* Added thrive theme 3rd-party integration
+
 = 1.1.0 =
 * Improved form loads
 * Added widget preview

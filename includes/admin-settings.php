@@ -57,7 +57,10 @@
 		</div><!-- ./row -->
 		<div class="row">
 			<div class="col s12 l12">
-				<p class="center-align"><a href="https://help.birdsend.co/article/show/62850" target="_blank">Get help connecting to your BirdSend account</a></p>
+				<p class="center-align">
+					<a href="https://help.birdsend.co/article/show/62850" target="_blank">Get help connecting to your BirdSend account</a><br>
+					<span class="grey-text lighten-1">Version <?php echo BSWP_VERSION; ?></span>
+				</p>
 			</div>
 		</div>
 	</div><!-- ./bswp-container -->
