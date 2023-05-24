@@ -231,7 +231,7 @@ function bswp_forms_sync( $id ) {
  *
  * @return array
  */
-function bswp_get_forms_on_current_page( $placement = false, $ids = array() ) {
+function bswp_get_forms_on_current_page( $placement = false, $ids = array(), $cached = true ) {
 	global $wpdb;
 
 	$page_profile = \BSWP\Models\Form::getCurrentPageProfile();
@@ -251,7 +251,7 @@ function bswp_get_forms_on_current_page( $placement = false, $ids = array() ) {
 	}
 
 	$forms = $wpdb->get_results(
-		$wpdb->prepare( "SELECT * FROM {$wpdb->prefix}bswp_forms WHERE triggers IS NOT NULL AND {$conditions} ORDER BY updated_at DESC" )
+		$wpdb->prepare( "SELECT * FROM {$wpdb->prefix}bswp_forms WHERE triggers IS NOT NULL AND {$conditions} AND id <> %d ORDER BY updated_at DESC", 0 )
 	);
 
 	$forms = array_map( function ($form) {

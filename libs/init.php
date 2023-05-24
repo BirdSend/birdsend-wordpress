@@ -88,6 +88,11 @@ function bswp_update_db_check() {
     if ( get_option( 'bswp_db_version' ) != BSWP_DB_VERSION ) {
         bswp_install();
     }
+
+    if ( bswp_is_enabled() ) {
+        // Sync all forms
+        bswp_forms_sync_all();
+    }
 }
 
 function bswp_deactivation() {
