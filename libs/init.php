@@ -47,11 +47,11 @@ function bswp_install() {
                 `type` varchar(50) NOT NULL,
                 `triggers` longtext DEFAULT NULL,
                 `placements_count` int(11) DEFAULT 0,
-                `updated_at` timestamp DEFAULT NULL,
+                `updated_at` timestamp NULL DEFAULT NULL,
                 `raw_html` longtext DEFAULT NULL,
                 `wg_html` longtext DEFAULT NULL,
                 `version` varchar(32) NOT NULL,
-                `last_sync_at` timestamp DEFAULT NULL,
+                `last_sync_at` timestamp NULL DEFAULT NULL,
                 `stats_displays_original` int(11) DEFAULT 0,
                 `stats_submissions_original` int(11) DEFAULT 0,
                 `stats_displays` int(11) DEFAULT 0,
@@ -68,7 +68,7 @@ function bswp_install() {
                 `subject_id` int(11) DEFAULT NULL,
                 `subject_type` varchar(255) DEFAULT NULL,
                 `properties` text DEFAULT NULL,
-                `created_at` timestamp DEFAULT NULL,
+                `created_at` timestamp NULL DEFAULT NULL,
                 UNIQUE KEY id (id)
             ) DEFAULT CHARSET=utf8;";
 

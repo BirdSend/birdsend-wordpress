@@ -155,8 +155,8 @@ function bswp_forms_sync_page($page = 1, $single = false, $ids = array() ) {
 			foreach ( $response['data'] as $row ) {
 				$query = "INSERT INTO {$wpdb->prefix}bswp_forms
 					( id, name, active, type, triggers, placements_count, updated_at, raw_html, wg_html, version, last_sync_at, stats_displays_original, stats_submissions_original )
-					VALUES ( %d, %s, %d, %s, %s, %d, %s, NULL, NULL, %s, UTC_TIMESTAMP, %d, %d ) as new
-					ON DUPLICATE KEY UPDATE name=new.name, active=new.active, type=new.type, triggers=new.triggers, placements_count=new.placements_count, updated_at=new.updated_at, version=new.version, stats_displays_original=new.stats_displays_original, stats_submissions_original=new.stats_submissions_original";
+					VALUES ( %d, %s, %d, %s, %s, %d, %s, NULL, NULL, %s, UTC_TIMESTAMP, %d, %d )
+					ON DUPLICATE KEY UPDATE name=VALUES(name), active=VALUES(active), type=VALUES(type), triggers=VALUES(triggers), placements_count=VALUES(placements_count), updated_at=VALUES(updated_at), version=VALUES(version), stats_displays_original=VALUES(stats_displays_original), stats_submissions_original=VALUES(stats_submissions_original)";
 
 				$wpdb->query( $wpdb->prepare( $query, $row['form_id'], $row['name'], $row['active'], $row['type'], json_encode( $row['triggers'] ), $row['placements_count'], $row['updated_at'], $row['version'], $row['stats']['displays'], $row['stats']['submissions'] ) );
 
@@ -170,7 +170,7 @@ function bswp_forms_sync_page($page = 1, $single = false, $ids = array() ) {
 
 			if (! $single) {
 				// Delete forms not in the sync since they have probably been deleted.
-				$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}bswp_forms SET active = 0 WHERE id NOT IN (".implode(',', $ids).")" ) );
+				$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}bswp_forms SET active = 0 WHERE id NOT IN (".implode(',', $ids).") AND id <> %d", 0 ) );
 			}
 		}
 	}
