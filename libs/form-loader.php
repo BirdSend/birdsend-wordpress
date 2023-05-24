@@ -230,6 +230,5 @@ function bswp_forms_auto_trigger( $forms ) {
 		}
 	}
 
-	$script = '<script>_bswpForms.nics = ' . json_encode( $data ) . ';</script>';
-	return $content . $script;
+	return '<script>_bswpForms.nics = ' . json_encode( $data ) . ';</script>';
 }

@@ -259,7 +259,7 @@ function bswp_get_forms_on_current_page( $placement = false, $ids = array(), $ca
 	}, $forms );
 
 	$types = array();
-	$forms = array_filter( $forms, function ($form) use ($page_profile, &$types) {
+	$forms = array_filter( $forms, function ($form) use ($page_profile, $ids, &$types) {
 		if ( $eligible = in_array( $form->id, $ids ) 
 			|| ( $form->isEligible( $page_profile ) && ( $form->allowMultiple() || ! in_array( $form->type, $types ) ) )
 		) {

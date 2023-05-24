@@ -81,17 +81,17 @@ function bswp_install() {
     if ( ! wp_next_scheduled( 'bswp_every_minute_event' ) ) {
 		wp_schedule_event( time(), 'bswp_every_minute', 'bswp_every_minute_event' );
 	}
+
+    if ( bswp_is_enabled() ) {
+        // Sync all forms
+        bswp_forms_sync_all();
+    }
 }
 
 add_action( 'plugins_loaded', 'bswp_update_db_check' );
 function bswp_update_db_check() {
     if ( get_option( 'bswp_db_version' ) != BSWP_DB_VERSION ) {
         bswp_install();
-    }
-
-    if ( bswp_is_enabled() ) {
-        // Sync all forms
-        bswp_forms_sync_all();
     }
 }
 
