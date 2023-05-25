@@ -21,7 +21,7 @@ $pagination = bswp_paginate_forms( $params );
 						<span class="card-title">Forms</span>
 						<p class="bswp-my-2">Only forms that are [Enabled] AND [BirdSend-designed] will show up below. [Forms for use with 3rd-party] won't show up.</p>
 
-						<div class="bswp-mt-4">
+						<div class="bswp-mt-8">
 							<form action="" method="GET">
 								<div style="display: none;">
 									<input type="hidden" name="page" value="bswp-settings" />
@@ -29,10 +29,9 @@ $pagination = bswp_paginate_forms( $params );
 								</div>
 								<div class="row" style="margin-bottom: 0;">
 									<div class="col">
-										Search:
 										<div class="input-field inline">
-											<input id="input_search" type="text" name="search" value="<?php echo $params['search']; ?>">
-											<label for="input_search">Name</label>
+											<input id="input_search" type="text" name="search" placeholder="Name" value="<?php echo $params['search']; ?>">
+											<label for="input_search">Search</label>
 										</div>
 										<button type="submit" class="btn-small yellow darken-1 blue-grey-text text-darken-4">Go</button>
 									</div>
