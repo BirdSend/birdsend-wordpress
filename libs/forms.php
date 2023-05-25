@@ -286,6 +286,25 @@ function bswp_form_update_display_stats( $id ) {
 }
 
 /**
+ * Check or drop form display cookie
+ *
+ * @param int $id
+ *
+ * @return bool
+ */
+function bswp_form_display_cookie( $id ) {
+	$name = 'bswp-display-'.$id;
+
+	if ( isset( $_COOKIE[$name] ) ) {
+		return true;
+	}
+
+	// set a cookie for 30 days
+	setcookie( $name, true, time() + ( 60*60*24*30 ) );
+	return false;
+}
+
+/**
  * Form display stats pixel
  *
  * @return void
@@ -295,7 +314,9 @@ function bswp_form_display_stats_pixel() {
 		$id = $_GET['id'];
 
 		if ( bswp_get_form( $id ) ) {
-			bswp_form_update_display_stats( $id );
+			if ( ! bswp_form_display_cookie( $id ) ) {
+				bswp_form_update_display_stats( $id );
+			}
 
         	$transparent1x1Png = '89504e470d0a1a0a0000000d494844520000000100000001010300000025db56ca00000003504c544500000'.
             	'0a77a3dda0000000174524e530040e6d8660000000a4944415408d76360000000020001e221bc330000000049454e44ae426082';

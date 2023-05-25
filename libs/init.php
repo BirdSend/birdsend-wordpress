@@ -15,10 +15,10 @@ require_once( BSWP_LIBS . 'form-loader.php' );
 
 // load admin files.
 if ( is_admin() ) {
-	require_once( BSWP_INC . 'admin.php' );
-	require_once( BSWP_INC . 'admin-functions.php' );
-	require_once( BSWP_INC . 'admin.php' );
-	require_once( BSWP_INC . 'admin-functions.php' );
+    require_once( BSWP_INC . 'admin.php' );
+    require_once( BSWP_INC . 'admin-functions.php' );
+    require_once( BSWP_INC . 'admin.php' );
+    require_once( BSWP_INC . 'admin-functions.php' );
 }
 
 register_activation_hook( __FILE__, 'bswp_install' );
@@ -33,7 +33,7 @@ function bswp_add_cron_interval( $schedules ) {
 }
 
 function bswp_install() {
-	global $wpdb;
+    global $wpdb;
 
     $installed_ver = get_option('bswp_db_version');
     if ( $installed_ver != BSWP_DB_VERSION ) {
@@ -79,8 +79,8 @@ function bswp_install() {
     }
 
     if ( ! wp_next_scheduled( 'bswp_every_minute_event' ) ) {
-		wp_schedule_event( time(), 'bswp_every_minute', 'bswp_every_minute_event' );
-	}
+        wp_schedule_event( time(), 'bswp_every_minute', 'bswp_every_minute_event' );
+    }
 
     if ( bswp_is_enabled() ) {
         // Sync all forms
@@ -96,7 +96,7 @@ function bswp_update_db_check() {
 }
 
 function bswp_deactivation() {
-	wp_clear_scheduled_hook( 'bswp_every_minute_event' );
+    wp_clear_scheduled_hook( 'bswp_every_minute_event' );
 }
 
 // Import cron functions

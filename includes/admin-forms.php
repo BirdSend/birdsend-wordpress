@@ -19,7 +19,7 @@ $pagination = bswp_paginate_forms( $params );
 				<div class="card card-wide">
 					<div class="card-content">
 						<span class="card-title">Forms</span>
-						<p class="bswp-my-2">Your BirdSend forms that are displayable on this WordPress site.</p>
+						<p class="bswp-my-2">Only forms that are [Enabled] AND [BirdSend-designed] will show up below. [Forms for use with 3rd-party] won't show up.</p>
 
 						<div class="bswp-mt-4">
 							<form action="" method="GET">
@@ -71,8 +71,8 @@ $pagination = bswp_paginate_forms( $params );
 										<form action="" method="POST">
 											<input type="hidden" name="submit" value="sync-form">
 											<input type="hidden" name="form_id" value="<?php echo $row->id; ?>">
-											<a class="btn-small grey lighten-4 blue-grey-text text-darken-4" href="<?php echo bswp_app_url('user/forms/' . $row->id); ?>" target="_blank"><i class="material-icons">edit</i></a>
-											<button type="submit" class="btn-small yellow darken-1 blue-grey-text text-darken-4"><i class="material-icons">refresh</i></button>
+											<a class="btn-small yellow darken-1 blue-grey-text text-darken-4 tooltipped" data-position="top" data-tooltip="Edit" href="<?php echo bswp_app_url('user/forms/' . $row->id); ?>" target="_blank"><i class="material-icons">edit</i></a>
+											<button type="submit" class="btn-small grey lighten-4 blue-grey-text text-darken-4 tooltipped" data-position="top" data-tooltip="Sync"><i class="material-icons">sync</i></button>
 										</form>
 									</td>
 								</tr>
@@ -93,7 +93,7 @@ $pagination = bswp_paginate_forms( $params );
 							<button type="submit" class="btn-small yellow darken-1 blue-grey-text text-darken-4 disabled" disabled><i class="material-icons left">refresh</i> <?php echo $sync_all_status == 1 ? 'Waiting for sync' : 'Syncing'; ?>...</button><br>
 							<span class="helper-text grey-text"><em>It may take a few minutes for the sync to complete.</em></span>
 							<?php } else { ?>
-							<button type="submit" class="btn-small yellow darken-1 blue-grey-text text-darken-4"><i class="material-icons left">refresh</i> Sync all forms</button>
+							<button type="submit" class="btn-small grey lighten-4 blue-grey-text text-darken-4 tooltipped" data-position="right" data-tooltip="BirdSend syncs forms from your account to WordPress automatically.<br>But if you think something is not working as expected, click here to sync manually."><i class="material-icons left">sync</i> Sync all forms</button>
 							<?php } ?>
 						</form>
 					</div>
