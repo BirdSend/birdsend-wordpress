@@ -209,7 +209,7 @@ function bswp_paginate_forms( $params = array() ) {
 
 	if ( $search = isset( $params['search'] ) ? $params['search'] : '' ) {
 		$path .= '&search=' . urlencode($search);
-		$conditions = 'AND `name` LIKE "%' . sanitize_text_field($search) . '%"';
+		$conditions .= ' AND `name` LIKE "%' . sanitize_text_field($search) . '%"';
 	}
 
 	$total = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}bswp_forms {$conditions}" );
