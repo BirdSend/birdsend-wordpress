@@ -146,7 +146,7 @@ function bswp_forms_placed_middle_content( $forms ) {
  * @return string
  */
 function bswp_forms_placed_after_paragraph_content( $forms, $content ) {
-	$forms = array_filter( $forms, function ($form) use ( $placement ) {
+	$forms = array_filter( $forms, function ($form) {
 		return in_array( 'placement-after-every-paragraph', \BSWP\Helper::get( $form->triggers, 'placements.active', array() ) );
 	} );
 
@@ -230,6 +230,5 @@ function bswp_forms_auto_trigger( $forms ) {
 		}
 	}
 
-	$script = '<script>_bswpForms.nics = ' . json_encode( $data ) . ';</script>';
-	return $content . $script;
+	return '<script>_bswpForms.nics = ' . json_encode( $data ) . ';</script>';
 }

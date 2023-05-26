@@ -155,8 +155,8 @@ function bswp_forms_sync_page($page = 1, $single = false, $ids = array() ) {
 			foreach ( $response['data'] as $row ) {
 				$query = "INSERT INTO {$wpdb->prefix}bswp_forms
 					( id, name, active, type, triggers, placements_count, updated_at, raw_html, wg_html, version, last_sync_at, stats_displays_original, stats_submissions_original )
-					VALUES ( %d, %s, %d, %s, %s, %d, %s, NULL, NULL, %s, UTC_TIMESTAMP, %d, %d ) as new
-					ON DUPLICATE KEY UPDATE name=new.name, active=new.active, type=new.type, triggers=new.triggers, placements_count=new.placements_count, updated_at=new.updated_at, version=new.version, stats_displays_original=new.stats_displays_original, stats_submissions_original=new.stats_submissions_original";
+					VALUES ( %d, %s, %d, %s, %s, %d, %s, NULL, NULL, %s, UTC_TIMESTAMP, %d, %d )
+					ON DUPLICATE KEY UPDATE name=VALUES(name), active=VALUES(active), type=VALUES(type), triggers=VALUES(triggers), placements_count=VALUES(placements_count), updated_at=VALUES(updated_at), version=VALUES(version), stats_displays_original=VALUES(stats_displays_original), stats_submissions_original=VALUES(stats_submissions_original)";
 
 				$wpdb->query( $wpdb->prepare( $query, $row['form_id'], $row['name'], $row['active'], $row['type'], json_encode( $row['triggers'] ), $row['placements_count'], $row['updated_at'], $row['version'], $row['stats']['displays'], $row['stats']['submissions'] ) );
 
@@ -170,7 +170,7 @@ function bswp_forms_sync_page($page = 1, $single = false, $ids = array() ) {
 
 			if (! $single) {
 				// Delete forms not in the sync since they have probably been deleted.
-				$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}bswp_forms SET active = 0 WHERE id NOT IN (".implode(',', $ids).")" ) );
+				$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}bswp_forms SET active = 0 WHERE id NOT IN (".implode(',', $ids).") AND id <> %d", 0 ) );
 			}
 		}
 	}
@@ -231,7 +231,7 @@ function bswp_forms_sync( $id ) {
  *
  * @return array
  */
-function bswp_get_forms_on_current_page( $placement = false, $ids = array() ) {
+function bswp_get_forms_on_current_page( $placement = false, $ids = array(), $cached = true ) {
 	global $wpdb;
 
 	$page_profile = \BSWP\Models\Form::getCurrentPageProfile();
@@ -251,7 +251,7 @@ function bswp_get_forms_on_current_page( $placement = false, $ids = array() ) {
 	}
 
 	$forms = $wpdb->get_results(
-		$wpdb->prepare( "SELECT * FROM {$wpdb->prefix}bswp_forms WHERE triggers IS NOT NULL AND {$conditions} ORDER BY updated_at DESC" )
+		$wpdb->prepare( "SELECT * FROM {$wpdb->prefix}bswp_forms WHERE triggers IS NOT NULL AND {$conditions} AND id <> %d ORDER BY updated_at DESC", 0 )
 	);
 
 	$forms = array_map( function ($form) {
@@ -259,7 +259,7 @@ function bswp_get_forms_on_current_page( $placement = false, $ids = array() ) {
 	}, $forms );
 
 	$types = array();
-	$forms = array_filter( $forms, function ($form) use ($page_profile, &$types) {
+	$forms = array_filter( $forms, function ($form) use ($page_profile, $ids, &$types) {
 		if ( $eligible = in_array( $form->id, $ids ) 
 			|| ( $form->isEligible( $page_profile ) && ( $form->allowMultiple() || ! in_array( $form->type, $types ) ) )
 		) {
@@ -286,6 +286,25 @@ function bswp_form_update_display_stats( $id ) {
 }
 
 /**
+ * Check or drop form display cookie
+ *
+ * @param int $id
+ *
+ * @return bool
+ */
+function bswp_form_display_cookie( $id ) {
+	$name = 'bswp-display-'.$id;
+
+	if ( isset( $_COOKIE[$name] ) ) {
+		return true;
+	}
+
+	// set a cookie for 30 days
+	setcookie( $name, true, time() + ( 60*60*24*30 ) );
+	return false;
+}
+
+/**
  * Form display stats pixel
  *
  * @return void
@@ -295,7 +314,9 @@ function bswp_form_display_stats_pixel() {
 		$id = $_GET['id'];
 
 		if ( bswp_get_form( $id ) ) {
-			bswp_form_update_display_stats( $id );
+			if ( ! bswp_form_display_cookie( $id ) ) {
+				bswp_form_update_display_stats( $id );
+			}
 
         	$transparent1x1Png = '89504e470d0a1a0a0000000d494844520000000100000001010300000025db56ca00000003504c544500000'.
             	'0a77a3dda0000000174524e530040e6d8660000000a4944415408d76360000000020001e221bc330000000049454e44ae426082';

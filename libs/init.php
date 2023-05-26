@@ -15,10 +15,10 @@ require_once( BSWP_LIBS . 'form-loader.php' );
 
 // load admin files.
 if ( is_admin() ) {
-	require_once( BSWP_INC . 'admin.php' );
-	require_once( BSWP_INC . 'admin-functions.php' );
-	require_once( BSWP_INC . 'admin.php' );
-	require_once( BSWP_INC . 'admin-functions.php' );
+    require_once( BSWP_INC . 'admin.php' );
+    require_once( BSWP_INC . 'admin-functions.php' );
+    require_once( BSWP_INC . 'admin.php' );
+    require_once( BSWP_INC . 'admin-functions.php' );
 }
 
 register_activation_hook( __FILE__, 'bswp_install' );
@@ -33,7 +33,7 @@ function bswp_add_cron_interval( $schedules ) {
 }
 
 function bswp_install() {
-	global $wpdb;
+    global $wpdb;
 
     $installed_ver = get_option('bswp_db_version');
     if ( $installed_ver != BSWP_DB_VERSION ) {
@@ -47,11 +47,11 @@ function bswp_install() {
                 `type` varchar(50) NOT NULL,
                 `triggers` longtext DEFAULT NULL,
                 `placements_count` int(11) DEFAULT 0,
-                `updated_at` timestamp DEFAULT NULL,
+                `updated_at` timestamp NULL DEFAULT NULL,
                 `raw_html` longtext DEFAULT NULL,
                 `wg_html` longtext DEFAULT NULL,
                 `version` varchar(32) NOT NULL,
-                `last_sync_at` timestamp DEFAULT NULL,
+                `last_sync_at` timestamp NULL DEFAULT NULL,
                 `stats_displays_original` int(11) DEFAULT 0,
                 `stats_submissions_original` int(11) DEFAULT 0,
                 `stats_displays` int(11) DEFAULT 0,
@@ -68,7 +68,7 @@ function bswp_install() {
                 `subject_id` int(11) DEFAULT NULL,
                 `subject_type` varchar(255) DEFAULT NULL,
                 `properties` text DEFAULT NULL,
-                `created_at` timestamp DEFAULT NULL,
+                `created_at` timestamp NULL DEFAULT NULL,
                 UNIQUE KEY id (id)
             ) DEFAULT CHARSET=utf8;";
 
@@ -79,8 +79,13 @@ function bswp_install() {
     }
 
     if ( ! wp_next_scheduled( 'bswp_every_minute_event' ) ) {
-		wp_schedule_event( time(), 'bswp_every_minute', 'bswp_every_minute_event' );
-	}
+        wp_schedule_event( time(), 'bswp_every_minute', 'bswp_every_minute_event' );
+    }
+
+    if ( bswp_is_enabled() ) {
+        // Sync all forms
+        bswp_forms_sync_all();
+    }
 }
 
 add_action( 'plugins_loaded', 'bswp_update_db_check' );
@@ -91,7 +96,7 @@ function bswp_update_db_check() {
 }
 
 function bswp_deactivation() {
-	wp_clear_scheduled_hook( 'bswp_every_minute_event' );
+    wp_clear_scheduled_hook( 'bswp_every_minute_event' );
 }
 
 // Import cron functions
