@@ -209,13 +209,17 @@ function bswp_paginate_forms( $params = array() ) {
 
 	if ( $search = isset( $params['search'] ) ? $params['search'] : '' ) {
 		$path .= '&search=' . urlencode($search);
-		$conditions .= ' AND `name` LIKE "%' . sanitize_text_field($search) . '%"';
+		$conditions .= ' AND `name` LIKE %s';
+		$search = '%'.$wpdb->esc_like($search).'%';
+	} else {
+		$conditions .= ' AND 1=%d';
+		$search = 1;
 	}
 
 	$total = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}bswp_forms {$conditions}" );
 	$last_page = ceil( $total / $limit );
 
-	$data = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}bswp_forms {$conditions} ORDER BY name LIMIT %d,%d", $offset, $limit ) );
+	$data = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}bswp_forms {$conditions} ORDER BY name LIMIT %d,%d", $search, $offset, $limit ) );
 
 	$links = array(
 		'first' => $path . '&' . http_build_query( array( 'p' => 1, 'pp' => $limit ) ),
