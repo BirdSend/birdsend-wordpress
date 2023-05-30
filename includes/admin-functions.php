@@ -216,7 +216,7 @@ function bswp_paginate_forms( $params = array() ) {
 		$search = 1;
 	}
 
-	$total = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}bswp_forms {$conditions}" );
+	$total = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->prefix}bswp_forms {$conditions}", $search ) );
 	$last_page = ceil( $total / $limit );
 
 	$data = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}bswp_forms {$conditions} ORDER BY name LIMIT %d,%d", $search, $offset, $limit ) );

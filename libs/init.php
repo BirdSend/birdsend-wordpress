@@ -17,12 +17,10 @@ require_once( BSWP_LIBS . 'form-loader.php' );
 if ( is_admin() ) {
     require_once( BSWP_INC . 'admin.php' );
     require_once( BSWP_INC . 'admin-functions.php' );
-    require_once( BSWP_INC . 'admin.php' );
-    require_once( BSWP_INC . 'admin-functions.php' );
 }
 
-register_activation_hook( __FILE__, 'bswp_install' );
-register_deactivation_hook( __FILE__, 'bswp_deactivation' );
+register_activation_hook( BSWP_PLUGIN_FILE_URL, 'bswp_install' );
+register_deactivation_hook( BSWP_PLUGIN_FILE_URL, 'bswp_deactivation' );
 
 add_filter( 'cron_schedules', 'bswp_add_cron_interval' );
 function bswp_add_cron_interval( $schedules ) { 
@@ -78,7 +76,7 @@ function bswp_install() {
         update_option( 'bswp_db_version', BSWP_DB_VERSION );
     }
 
-    if ( ! wp_next_scheduled( 'bswp_every_minute_event' ) ) {
+    if ( ! $scheduled = wp_next_scheduled( 'bswp_every_minute_event' ) ) {
         wp_schedule_event( time(), 'bswp_every_minute', 'bswp_every_minute_event' );
     }
 

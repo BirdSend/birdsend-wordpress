@@ -34,6 +34,7 @@ define( 'BSWP_DB_VERSION', '0.1' );
 define( 'BSWP_URL', plugin_dir_url(__FILE__) );
 define( 'BSWP_PATH', plugin_dir_path(__FILE__) );
 define( 'BSWP_BASENAME', plugin_basename( __FILE__ ) );
+define( 'BSWP_PLUGIN_FILE_URL', __FILE__);
 define( 'BSWP_LIBS', BSWP_PATH . 'libs/' );
 
 define( 'BSWP_INC', BSWP_PATH . 'includes/' );
