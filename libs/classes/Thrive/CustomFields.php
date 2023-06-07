@@ -24,6 +24,7 @@ class CustomFields
         [ 'id' => 'mapping_radio', 'placeholder' => 'Radio' ],
         [ 'id' => 'mapping_select', 'placeholder' => 'Dropdown' ],
         [ 'id' => 'mapping_textarea', 'placeholder' => 'Textarea' ],
+        [ 'id' => 'mapping_quiz_result', 'placeholder' => 'Quiz Result' ],
     ];
 
     /**
