@@ -195,6 +195,7 @@ function bswp_api_request( $method, $path, $data = array(), $throwException = fa
 
 		if ( WP_DEBUG ) {
 			echo $e->getMessage();
+			error_log( $e->getMessage() );
 		}
 
 		if ($throwException) {
@@ -210,6 +211,15 @@ function bswp_api_request( $method, $path, $data = array(), $throwException = fa
  * @return bool
  */
 function bswp_is_enabled() {
+    return bswp_is_connected();
+}
+
+/**
+ * Is connected
+ *
+ * @return bool
+ */
+function bswp_is_connected() {
     return !! bswp_token();
 }
 

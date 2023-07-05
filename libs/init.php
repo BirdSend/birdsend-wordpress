@@ -99,3 +99,6 @@ function bswp_deactivation() {
 
 // Import cron functions
 require_once( BSWP_LIBS . 'cron.php' );
+
+// Load thrive themes integration
+require_once( BSWP_LIBS . 'thrive.php' );

@@ -2,8 +2,8 @@
 Contributors: birdsend
 Tags: birdsend, email, marketing, email marketing, web, optin, form, web form, optin form, mailing list, newsletter 
 Requires at least: 4.9
-Tested up to: 6.0
-Stable tag: 1.1.0
+Tested up to: 6.2.2
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,6 +30,9 @@ Upload the BirdSend Email Marketing plugin to your blog, Activate it, then conne
 1, 2, 3: You're done!
 
 == Changelog ==
+= 1.2.0 =
+* Added thrive theme 3rd-party integration
+
 = 1.1.0 =
 * Improved form loads
 * Added widget preview
