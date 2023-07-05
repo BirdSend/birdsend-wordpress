@@ -9,6 +9,7 @@ var BSWP_Admin = function () {
         } );
 
         jQuery( 'select' ).formSelect();
+        jQuery( '.tooltipped' ).tooltip();;
 
         M.updateTextFields();
     };

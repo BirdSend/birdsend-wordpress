@@ -16,9 +16,13 @@ function bswp_show_form_shortcode( $attr ) {
 		$attr = $default;
 	}
 
-	return '<div data-birdsend-form="' . $attr[ 'form' ] . '"></div>';
+	if ( ( $id = $attr['form'] ) && ( $form = bswp_get_form( $id ) ) && $form->type == 'in-content' && $html = bswp_get_form_html( $id ) ) {
+		foreach ( $html['css'] as $index => $src ) {
+			bswp_enqueue_form_style( $src, $html['ver'] );
+		}
+		return $html['html'] . '<script>_bswpForms.ics.push(' . json_encode( \BSWP\Helper::except( $html, array( 'css', 'html' ) ) ) . ');</script>';
+	}
 }
-
 add_shortcode( 'birdsend', 'bswp_show_form_shortcode' );
 
 /**
@@ -47,5 +51,4 @@ function bswp_overwrite_removed_shortcodes() {
 		}
 	}
 }
-
 add_action( 'wp_loaded', 'bswp_overwrite_removed_shortcodes' );

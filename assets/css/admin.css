@@ -34,6 +34,10 @@
 	margin: 35px auto;
 }
 
+.bswp-container.bswp-container-wide {
+	width: 80%;
+}
+
 .bswp-container .card-wide {
 	max-width: 100%;
 	box-shadow: none;
