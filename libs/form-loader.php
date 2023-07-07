@@ -25,7 +25,7 @@ function bswp_forms_scan_on_click_snippets( $content ) {
 	}
 
 	$doc = new \DOMDocument;
-	$doc->loadHTML( $content );
+	$doc->loadHTML( $content, LIBXML_NOERROR );
 
 	$queries = array( 'data-birdsend-form' => '//a[@data-birdsend-form!=""]', 'data-birsend-form' => '//a[@data-birsend-form!=""]' );
 	$ids = array();
