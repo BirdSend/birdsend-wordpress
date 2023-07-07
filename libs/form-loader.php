@@ -20,8 +20,12 @@ add_action( 'wp_head', 'bswp_forms_init' );
  * @return array|null
  */
 function bswp_forms_scan_on_click_snippets( $content ) {
+	if (! $content) {
+		return [];
+	}
+
 	$doc = new \DOMDocument;
-	$doc->loadHTML( $content );
+	$doc->loadHTML( $content, LIBXML_NOERROR );
 
 	$queries = array( 'data-birdsend-form' => '//a[@data-birdsend-form!=""]', 'data-birsend-form' => '//a[@data-birsend-form!=""]' );
 	$ids = array();
