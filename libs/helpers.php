@@ -96,7 +96,18 @@ function bswp_refresh_token() {
 		update_option( 'bswp_refresh_token', sanitize_text_field( $response[ 'refresh_token' ] ) );
 
 		return $response;
-	} catch ( \Exception $e ) {}
+	} catch ( \Exception $e ) {
+		if ($e->hasResponse() && $e->getResponse()->getStatusCode() == 401) {
+			// Backup the current token and disconnect
+			update_option( 'bswp_token_expired', bswp_token() );
+			delete_option( 'bswp_token' );
+		}
+
+		if ( WP_DEBUG ) {
+			echo $e->getMessage();
+			error_log( $e->getMessage() );
+		}
+	}
 }
 
 /**
