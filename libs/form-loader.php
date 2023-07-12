@@ -123,7 +123,7 @@ function bswp_prepare_form_placements( $content ) {
 	}
 	return $content;
 }
-add_filter( 'the_content', 'bswp_prepare_form_placements' );
+add_filter( 'the_content', 'bswp_prepare_form_placements', 999 );
 
 /**
  * Forms placed on particular placement
