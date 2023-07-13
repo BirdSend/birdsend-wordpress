@@ -6,11 +6,51 @@
  * @return void
  */
 function bswp_forms_init() {
+	if (! bswp_is_enabled()) {
+		return;
+	}
 	if ( is_single() || is_page() ) {
 		echo '<script>var _bswp = { formLoader: false, messageUrl: "' . add_query_arg( array( 'bswp_form_gdpr' => 1 ), home_url() ) . '" }; var _bswpForms = { ics: [], wgs: [], nics: [] };</script>';
 	}
 }
 add_action( 'wp_head', 'bswp_forms_init' );
+
+/**
+ * Render in-content forms using HTML snippet
+ *
+ * @param string $content
+ *
+ * @return array|null
+ */
+function bswp_forms_render_in_content_html_snippets( $content ) {
+	if ($content) {
+		$doc = new \DOMDocument;
+		$doc->loadHTML( $content, LIBXML_NOERROR );
+
+		$queries = array( 'data-birdsend-form' => '//div[@data-birdsend-form!=""]', 'data-birsend-form' => '//div[@data-birsend-form!=""]' );
+
+		foreach ( $queries as $key => $query ) {
+			$xpath = new \DOMXpath( $doc );
+			$nodeList = $xpath->query( $query );
+
+			for ( $i=0; $i<$nodeList->length; $i++ ) {
+				$node = $nodeList->item( $i );
+				$id = (int) $node->getAttribute( $key );
+
+				if ( $id && ( $form = bswp_get_form( $id ) ) && $form->type == 'in-content' && $html = bswp_get_form_html( $id ) ) {
+					foreach ( $html['css'] as $index => $src ) {
+						bswp_enqueue_form_style( $src, $html['ver'] );
+					}
+
+					$formHtml = $html['html'] . '<script>_bswpForms.ics.push(' . json_encode( \BSWP\Helper::except( $html, array( 'css', 'html' ) ) ) . ');</script>';
+					$content = str_replace($node->ownerDocument->saveHTML($node), $formHtml, $content);
+				}
+			}
+		}
+	}
+
+	return $content;
+}
 
 /**
  * Scan on click snippets
@@ -51,8 +91,13 @@ function bswp_forms_scan_on_click_snippets( $content ) {
  * @return string
  */
 function bswp_prepare_form_placements( $content ) {
+	if (! bswp_is_enabled()) {
+		return $content;
+	}
 	if ( is_single() || is_page() ) {
 		wp_enqueue_script( 'bwsp-form', BSWP_JS . 'form.js', array(), BSWP_VERSION, true);
+
+		$content = bswp_forms_render_in_content_html_snippets( $content );
 
 		$ocs = bswp_forms_scan_on_click_snippets( $content );
 		$icForms = bswp_get_forms_on_current_page( true );
@@ -78,7 +123,7 @@ function bswp_prepare_form_placements( $content ) {
 	}
 	return $content;
 }
-add_filter( 'the_content', 'bswp_prepare_form_placements' );
+add_filter( 'the_content', 'bswp_prepare_form_placements', 999 );
 
 /**
  * Forms placed on particular placement

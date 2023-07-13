@@ -83,8 +83,8 @@ class Form extends Model
 
 		$showFilterSets = (array) $this->triggers['filters']['show'];
 		$hideFilterSets = array_merge(
-			(array) isset( $this->triggers['filters']['hide'] ) ? $this->triggers['filters']['hide'] : array(),
-			(array) isset( $this->triggers['filters']['hide_more'] ) ? $this->triggers['filters']['hide_more'] : array()
+			! empty( $this->triggers['filters']['hide'] ) ? (array) $this->triggers['filters']['hide'] : array(),
+			! empty( $this->triggers['filters']['hide_more'] ) ? (array) $this->triggers['filters']['hide_more'] : array()
 		);
 
 		$showWhen = isset( $this->triggers['show_when'] ) ? $this->triggers['show_when'] : '';
