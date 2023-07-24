@@ -123,7 +123,10 @@ function bswp_prepare_form_placements( $content ) {
 	}
 	return $content;
 }
-add_filter( 'the_content', 'bswp_prepare_form_placements', 999 );
+add_filter( 'the_content', 'bswp_prepare_form_placements', PHP_INT_MAX );
+
+// Fix conflicts with thrive architect
+add_filter( 'tcb.landing_page_content', 'bswp_prepare_form_placements', PHP_INT_MAX );
 
 /**
  * Forms placed on particular placement
