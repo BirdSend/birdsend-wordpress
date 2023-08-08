@@ -238,7 +238,28 @@ class Helper
      */
     public static function getRefererDomain( $referer )
     {
-    	$parse = parse_url( $referer );
-    	return isset( $parse['host'] ) ? $parse['host'] : '';
+        $parse = parse_url( $referer );
+        return isset( $parse['host'] ) ? self::normalizeDomain($parse['host']) : '';
+    }
+
+    /**
+     * Normalize domain
+     *
+     * E.g. remove the prefix www.
+     *
+     * @param string $domain
+     *
+     * @return string
+     */
+    public static function normalizeDomain( $domain )
+    {
+        $needle = 'www.';
+
+        if ( self::startsWith( $domain, $needle ) ) {
+            $pos = strpos( $domain, $needle );
+            $domain = substr_replace( $domain, '', $pos, strlen( $needle ) );
+        }
+
+        return $domain;
     }
 }
