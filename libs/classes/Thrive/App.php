@@ -74,6 +74,10 @@ class App extends Autoresponder {
                 bswp_api_request( 'PATCH', 'contacts/'.$contact['contact_id'], $data );
             }
 
+            if ( ! empty( $data['form_id'] ) ) {
+                bswp_api_request( 'POST', 'contacts/'.$contact['contact_id'].'/subscribe', $data );
+            }
+
             if ( ! empty( $data['tags'] ) ) {
                 $params = [
                     'tags' => $data['tags'],
