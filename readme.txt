@@ -3,7 +3,7 @@ Contributors: birdsend
 Tags: birdsend, email, marketing, email marketing, web, optin, form, web form, optin form, mailing list, newsletter 
 Requires at least: 4.9
 Tested up to: 6.2.2
-Stable tag: 1.2.4
+Stable tag: 1.2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,11 +30,14 @@ Upload the BirdSend Email Marketing plugin to your blog, Activate it, then conne
 1, 2, 3: You're done!
 
 == Changelog ==
+= 1.2.5 =
+* Fixed bug thrive subscribe for existing subscribers.
+
 = 1.2.4 =
-* Fixed bug when the site URL starts with www
+* Fixed bug when the site URL starts with www.
 
 = 1.2.3 =
-* Fixed compatibility with thrive architect page
+* Fixed compatibility with thrive architect page.
 
 = 1.2.2 =
 * Improved invalid refresh token handling.
@@ -61,7 +64,6 @@ Upload the BirdSend Email Marketing plugin to your blog, Activate it, then conne
 = 1.0.11 =
 * Updated WooCommerce integration to pass contact name
 
-== Changelog ==
 = 1.0.10 =
 * Improve shortcode handler
 
@@ -75,7 +77,6 @@ Upload the BirdSend Email Marketing plugin to your blog, Activate it, then conne
 * Add ability to auto-refresh expired access token.
 * Fix conversion integration with WooCommerce.
 
-== Changelog ==
 = 1.0.6 =
 * Improve GuzzleHttp Exceptions handler.
 

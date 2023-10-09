@@ -183,7 +183,8 @@ function bswp_api_request( $method, $path, $data = array(), $throwException = fa
 			'headers' => array(
 				'Accept' => 'application/json',
 				'Content-Type' => 'application/json',
-				'Authorization' => 'Bearer ' . $token
+				'Authorization' => 'Bearer ' . $token,
+				'User-Agent' => 'birdsend-wp'
 			)
 		);
 
