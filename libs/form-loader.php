@@ -9,7 +9,7 @@ function bswp_forms_init() {
 	if (! bswp_is_enabled()) {
 		return;
 	}
-	if ( is_single() || is_page() ) {
+	if ( is_single() || is_page() || is_front_page() ) {
 		echo '<script>var _bswp = { formLoader: false, messageUrl: "' . add_query_arg( array( 'bswp_form_gdpr' => 1 ), home_url() ) . '" }; var _bswpForms = { ics: [], wgs: [], nics: [] };</script>';
 	}
 }
@@ -94,7 +94,7 @@ function bswp_prepare_form_placements( $content ) {
 	if (! bswp_is_enabled()) {
 		return $content;
 	}
-	if ( is_single() || is_page() ) {
+	if ( is_single() || is_page() || is_front_page() ) {
 		wp_enqueue_script( 'bwsp-form', BSWP_JS . 'form.js', array(), BSWP_VERSION, true);
 
 		$content = bswp_forms_render_in_content_html_snippets( $content );
