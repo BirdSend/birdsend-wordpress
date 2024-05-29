@@ -224,6 +224,8 @@ function bswp_forms_placed_after_paragraph_content( $forms, $content ) {
 			foreach ( $indexes as $index ) {
 				$content = bswp_insert_after_paragraph_index( $html['html'], $index, $content );
 			}
+
+			$content .= '<script>_bswpForms.ics.push(' . json_encode( \BSWP\Helper::except( $html, array( 'css', 'html' ) ) ) . ');</script>';
 		}
 	}
 

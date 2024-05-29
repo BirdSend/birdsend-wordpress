@@ -32,6 +32,7 @@ Upload the BirdSend Email Marketing plugin to your blog, Activate it, then conne
 == Changelog ==
 = 1.2.8 =
 * Fixed bug GDPR checkbox when displayed multiple times in a page/post.
+* Fixed display trigger placement after every X paragraphs.
 
 = 1.2.7 =
 * Upgraded guzzle package.
