@@ -122,6 +122,25 @@ function bswp_get_form_html( $id, $widget = false ) {
 		$html['html'] = '<div class="bs-in-content-form" style="display: none !important;">' . $html['html'] . '</div>';
 	}
 
+	$html['html'] = bswp_form_parse_html($html['html']);
+
+	return $html;
+}
+
+/**
+ * Parse form
+ *
+ * @param string $html
+ *
+ * @return string
+ */
+function bswp_form_parse_html( $html )
+{
+	// Parse the gdpr
+	$uuid = wp_generate_uuid4();
+
+	$html = str_replace(['id="bs-gdpr"', 'for="bs-gdpr"'], ['id="bs-gdpr-' . $uuid . '"', 'for="bs-gdpr-' . $uuid . '"'], $html);
+
 	return $html;
 }
 
