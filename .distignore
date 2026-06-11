@@ -1,0 +1,40 @@
+# Build a release zip (pick one):
+#   ./scripts/build-release.sh
+#   ./scripts/build-release.sh ../birdsend-email-marketing.zip
+# Or install WP-CLI package: wp package install wp-cli/dist-archive-command
+#   wp dist-archive . birdsend-email-marketing.zip --plugin-dirname=birdsend-email-marketing
+
+# Release artifacts
+/birdsend-email-marketing.zip
+/*.zip
+/scripts
+
+# Git and CI
+/.git
+/.github
+/.gitignore
+/.distignore
+
+# Internal documentation (committed to repo, not shipped to users)
+/SUPPORT.md
+/TESTING.md
+
+# JavaScript build tooling and sources
+/node_modules
+/package.json
+/package-lock.json
+/webpack.common.js
+/webpack.dev.js
+/webpack.prod.js
+/resources
+
+# PHP dependency manifests (vendor/ is required at runtime)
+/composer.json
+/composer.lock
+
+# OS and editor
+/.DS_Store
+*.log
+
+# Plugin update checker dev samples
+/libs/plugin-update-checker/examples

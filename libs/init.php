@@ -27,7 +27,22 @@ function bswp_add_cron_interval( $schedules ) {
     $schedules['bswp_every_minute'] = array(
         'interval' => 60,
         'display'  => esc_html__( '(BS) Every Minute' ), );
+    $schedules['bswp_every_two_weeks'] = array(
+        'interval' => 14 * DAY_IN_SECONDS,
+        'display'  => esc_html__( '(BS) Every Two Weeks' ),
+    );
     return $schedules;
+}
+
+/**
+ * Schedule biweekly token refresh if connected
+ *
+ * @return void
+ */
+function bswp_schedule_token_refresh() {
+    if ( get_option( 'bswp_refresh_token' ) && ! wp_next_scheduled( 'bswp_biweekly_token_refresh' ) ) {
+        wp_schedule_event( time(), 'bswp_every_two_weeks', 'bswp_biweekly_token_refresh' );
+    }
 }
 
 function bswp_install() {
@@ -81,6 +96,7 @@ function bswp_install() {
     }
 
     if ( bswp_is_enabled() ) {
+        bswp_schedule_token_refresh();
         // Sync all forms
         bswp_forms_sync_all();
     }
@@ -95,6 +111,20 @@ function bswp_update_db_check() {
 
 function bswp_deactivation() {
     wp_clear_scheduled_hook( 'bswp_every_minute_event' );
+    wp_clear_scheduled_hook( 'bswp_biweekly_token_refresh' );
+}
+
+add_action( 'plugins_loaded', 'bswp_maybe_migrate_token_refresh' );
+function bswp_maybe_migrate_token_refresh() {
+    if ( ! get_option( 'bswp_refresh_token' ) ) {
+        return;
+    }
+
+    if ( ! get_option( 'bswp_client' ) ) {
+        bswp_get_oauth_client();
+    }
+
+    bswp_schedule_token_refresh();
 }
 
 // Import cron functions

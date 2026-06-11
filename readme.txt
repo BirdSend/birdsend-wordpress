@@ -3,7 +3,7 @@ Contributors: birdsend
 Tags: birdsend, email, marketing, email marketing, web, optin, form, web form, optin form, mailing list, newsletter 
 Requires at least: 4.9
 Tested up to: 6.2.2
-Stable tag: 1.2.8
+Stable tag: 1.2.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,6 +30,12 @@ Upload the BirdSend Email Marketing plugin to your blog, Activate it, then conne
 1, 2, 3: You're done!
 
 == Changelog ==
+= 1.2.9 =
+* Added biweekly automatic OAuth token refresh via WP Cron to prevent disconnections on inactive sites.
+* Store OAuth client credentials at site level so token refresh works in cron and background contexts.
+* Added dismissible admin notice when scheduled token refresh fails.
+* Added read-only activity log with pagination on Developer settings page.
+
 = 1.2.8 =
 * Fixed bug GDPR checkbox when displayed multiple times in a page/post.
 * Fixed display trigger placement after every X paragraphs.
