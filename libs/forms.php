@@ -12,17 +12,59 @@ function bswp_forms_sync_all() {
 }
 
 /**
+ * Human-readable label for the sync-all queue status
+ *
+ * @return string
+ */
+function bswp_get_forms_sync_all_status_label() {
+	$status = (int) get_option( 'bswp_forms_sync_all', 0 );
+
+	switch ( $status ) {
+		case 1:
+			return 'Waiting for sync';
+		case 9:
+			return 'Syncing';
+		default:
+			return 'Idle';
+	}
+}
+
+/**
+ * Clear a stuck sync-all queue status
+ *
+ * @return void
+ */
+function bswp_forms_sync_all_reset() {
+	update_option( 'bswp_forms_sync_all', 0 );
+}
+
+/**
+ * Run sync all forms immediately (same work as cron, without waiting in queue)
+ *
+ * @return bool
+ */
+function bswp_forms_sync_all_immediate() {
+	update_option( 'bswp_forms_sync_all', 9 );
+
+	$success = false;
+
+	try {
+		$success = (bool) bswp_forms_sync_page();
+	} finally {
+		update_option( 'bswp_forms_sync_all', 0 );
+	}
+
+	return $success;
+}
+
+/**
  * Execute sync all forms
  *
  * @return void
  */
 function bswp_forms_sync_all_exec() {
 	if ( get_option( 'bswp_forms_sync_all' ) == 1 ) {
-		update_option( 'bswp_forms_sync_all', 9 );
-
-		bswp_forms_sync_page();
-
-		update_option( 'bswp_forms_sync_all', 0 );
+		bswp_forms_sync_all_immediate();
 	}
 }
 
@@ -164,7 +206,7 @@ function bswp_enqueue_form_style( $src, $ver = null )
  * @param boolean $single
  * @param array   $ids
  *
- * @return void
+ * @return bool
  */
 function bswp_forms_sync_page($page = 1, $single = false, $ids = array() ) {
 	global $wpdb;
@@ -192,7 +234,11 @@ function bswp_forms_sync_page($page = 1, $single = false, $ids = array() ) {
 				$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}bswp_forms SET active = 0 WHERE id NOT IN (".implode(',', $ids).") AND id <> %d", 0 ) );
 			}
 		}
+
+		return true;
 	}
+
+	return false;
 }
 
 /**

@@ -61,8 +61,8 @@ $pagination = bswp_paginate_forms( $params );
 									<td><?php echo $row->id; ?></td>
 									<td><a href="<?php echo bswp_app_url('user/forms/' . $row->id); ?>" target="_blank"><?php echo $row->name; ?></a></td>
 									<td><?php echo $row->type; ?></td>
-									<td><?php echo get_date_from_gmt( $row->updated_at ); ?></td>
-									<td><?php echo get_date_from_gmt( $row->last_sync_at ); ?></td>
+									<td><?php echo esc_html( bswp_format_datetime( $row->updated_at ) ); ?></td>
+									<td><?php echo esc_html( bswp_format_datetime( $row->last_sync_at ) ); ?></td>
 									<td class="center-align"><?php echo $row->stats_displays; ?></td>
 									<td class="center-align"><?php echo $row->stats_submissions; ?></td>
 									<td class="center-align"><?php echo round($row->stats_submissions / max(1, $row->stats_displays) * 100, 2); ?>%</td>
